@@ -1,14 +1,14 @@
-const { selectAllHarvestsOfUserByEmail } = require("../repositories/selectAllHarvestsOfUserByEmail");
+const selectAllHarvestsOfUserByEmail = require("../repositories/selectAllHarvestsOfUserByEmail");
 
 async function getAllHarvestsOfUser(req, res, next) {
   try {
+    let userEmail = "maya@email.com";
     const harvests = await selectAllHarvestsOfUserByEmail(userEmail);
-    console.log(harvests)
 
-    res.status(200).send(harvests);
+    res.status(200).send({ harvests });
   } catch (error) {
     next(error);
   }
 }
 
-module.exports = getExercises;
+module.exports = getAllHarvestsOfUser;

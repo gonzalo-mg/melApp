@@ -4,7 +4,7 @@ async function selectAllBeehivesOfUserByEmail(email) {
   const pool = await getPool();
 
   const sqlCode =
-    "SELECT beehives.* FROM beehives JOIN apiaries ON beehives.apiaryId = apiaries.apiaryId JOIN users ON apiaries.userEmail = users.userEmail WHERE users.userEmail = ?;";
+    "select beehives.* from beehives join apiaries on beehives.apiaryId = apiaries.apiaryId join users on apiaries.userEmail = users.userEmail where users.userEmail = ?;";
 
   return await pool.query(sqlCode, [email]);
 }

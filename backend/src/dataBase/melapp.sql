@@ -4,8 +4,8 @@ USE apiculture;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
-    userEmail VARCHAR(100) NOT NULL UNIQUE  PRIMARY KEY,
-    password VARCHAR(100) NOT NULL,
+    userEmail VARCHAR(100) NOT NULL UNIQUE PRIMARY KEY,
+    userPassword VARCHAR(100) NOT NULL,
     created DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS suppliers (
     street VARCHAR(100),
     addressNumber INT,
     notes VARCHAR(500),
-    userEmail INT,
+    userEmail VARCHAR(100),
     FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
 	created DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS clients (
     street VARCHAR(100),
     addressNumber INT,
     notes VARCHAR(500),
-    userEmail INT,
+    userEmail VARCHAR(100),
     FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
 	created DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS apiaries (
     endDate DATE,
     userIsOwner BOOLEAN NOT NULL DEFAULT TRUE,
     created DATETIME DEFAULT CURRENT_TIMESTAMP,
-    userEmail INT,
+    userEmail VARCHAR(100),
     clientId INT DEFAULT NULL,
     FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
     FOREIGN KEY (clientId) REFERENCES clients(clientId) ON DELETE CASCADE,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS queens (
     yearOfBirth YEAR NOT NULL,
     yearOfDeath YEAR,
     origin ENUM('captured', 'bred', 'bought') NOT NULL DEFAULT 'bought',
-    userEmail INT,
+    userEmail VARCHAR(100),
     mother INT,
     supplierId INT,
     FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS harvests (
 -- Inserción de datos de prueba
 
 INSERT INTO users
-    (email, password)
+    (userEmail, userPassword)
 VALUES
     ('maya@email.com', 'maya'),
     ('sherlock@email.com', 'sherlock');

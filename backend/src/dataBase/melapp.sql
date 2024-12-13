@@ -4,8 +4,7 @@ USE apiculture;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
-    userId INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    userEmail VARCHAR(100) NOT NULL UNIQUE  PRIMARY KEY,
     password VARCHAR(100) NOT NULL,
     created DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -21,8 +20,8 @@ CREATE TABLE IF NOT EXISTS suppliers (
     street VARCHAR(100),
     addressNumber INT,
     notes VARCHAR(500),
-    userId INT,
-    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+    userEmail INT,
+    FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
 	created DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -37,8 +36,8 @@ CREATE TABLE IF NOT EXISTS clients (
     street VARCHAR(100),
     addressNumber INT,
     notes VARCHAR(500),
-    userId INT,
-    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+    userEmail INT,
+    FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
 	created DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -56,9 +55,9 @@ CREATE TABLE IF NOT EXISTS apiaries (
     endDate DATE,
     userIsOwner BOOLEAN NOT NULL DEFAULT TRUE,
     created DATETIME DEFAULT CURRENT_TIMESTAMP,
-    userId INT,
+    userEmail INT,
     clientId INT DEFAULT NULL,
-    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+    FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
     FOREIGN KEY (clientId) REFERENCES clients(clientId) ON DELETE CASCADE,
     CHECK (userIsOwner = FALSE OR clientId IS NULL),
     CHECK (userIsOwner = TRUE OR clientId IS NOT NULL)
@@ -71,10 +70,10 @@ CREATE TABLE IF NOT EXISTS queens (
     yearOfBirth YEAR NOT NULL,
     yearOfDeath YEAR,
     origin ENUM('captured', 'bred', 'bought') NOT NULL DEFAULT 'bought',
-    userId INT,
+    userEmail INT,
     mother INT,
     supplierId INT,
-    FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+    FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
     FOREIGN KEY (mother) REFERENCES queens(queenId) ON DELETE CASCADE,
     FOREIGN KEY (supplierId) REFERENCES suppliers(supplierId) ON DELETE CASCADE,
     created DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -140,22 +139,22 @@ VALUES
     ('sherlock@email.com', 'sherlock');
 
 INSERT INTO suppliers
-    (supplierName, phone, email, web, locality, street, addressNumber, userId) 
+    (supplierName, phone, email, web, locality, street, addressNumber, userEmail) 
 VALUES
-    ('proveedorTest', '123456789', 'proveedorTest@example.com', 'www.proveedorTest.com', 'Villa Bicho', 'Avenida de los Himenópteros', 1, 1);
+    ('proveedorTest', '123456789', 'proveedorTest@example.com', 'www.proveedorTest.com', 'Villa Bicho', 'Avenida de los Himenópteros', 1, 'maya@email.com');
 
 INSERT INTO clients
-    (clientName, phone, email, locality, street, addressNumber, userId) 
+    (clientName, phone, email, locality, street, addressNumber, userEmail) 
 VALUES
-    ('clienteTest', '987654321', 'clienteTest@example.com', 'Arroyo de la Miel', 'Calle Polen', 2, 1);
+    ('clienteTest', '987654321', 'clienteTest@example.com', 'Arroyo de la Miel', 'Calle Polen', 2, 'maya@email.com');
 
 INSERT INTO apiaries
-    (apiaryName, locality, latitude, longitude, nomad, userIsOwner, vegetation,  hmToWater,	startDate, userId, clientId) 
+    (apiaryName, locality, latitude, longitude, nomad, userIsOwner, vegetation,  hmToWater,	startDate, userEmail, clientId) 
 VALUES
 -- apiario fijo
-    ('apiarioTest', 'localityTest', 40.123456, -3.123456, FALSE, TRUE, 'flores silvestres', 0, '2020-01-01', 1, null),
+    ('apiarioTest', 'localityTest', 40.123456, -3.123456, FALSE, TRUE, 'flores silvestres', 0, '2020-01-01', 'maya@email.com', null),
 -- apiario nómada
-    ('apiarioNomadaTest', 'localityTest', 40.654321, -3.654321, TRUE, FALSE, 'naranjos', 1, '2021-01-01', 1, 1);
+    ('apiarioNomadaTest', 'localityTest', 40.654321, -3.654321, TRUE, FALSE, 'naranjos', 1, '2021-01-01', 'maya@email.com', 1);
 
 INSERT INTO queens
     (queenName, yearOfBirth, yearOfDeath, origin, supplierId) 

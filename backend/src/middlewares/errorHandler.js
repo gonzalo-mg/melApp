@@ -11,7 +11,6 @@ function errorHandler(error, req, res, next) {
   if (error.name === "ValidationError") {
     return res.status(400).send({
       message: error.message,
-      details: error.details,
     });
   }
 

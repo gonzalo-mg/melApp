@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "API backend melApp",
+    "description": "Documentación de la API para melApp",
+    "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:undefined",
   "basePath": "/",
   "schemes": [
     "http"

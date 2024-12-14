@@ -1,12 +1,23 @@
 function errorHandler(error, req, res, next) {
-  console.error(error);
-
-  // caso de error de validacion de formatos con joi
-  if (error.name === "ValidationError") {
-    error.statusCode = 400;
+  if (!error) {
+    const message = "Resource not found.";
+    console.warn(message);
+    return res.status(404).send({ message });
   }
 
-  res.status(error.statusCode || 500).send({ message: error.message });
+  console.error(error);
+
+  // errores de validacion con joi
+  if (error.name === "ValidationError") {
+    return res.status(400).send({
+      message: error.message,
+      details: error.details,
+    });
+  }
+
+  res.status(error.statusCode || 500).send({
+    message: error.message || "Internal Server Error",
+  });
 }
 
 module.exports = errorHandler;

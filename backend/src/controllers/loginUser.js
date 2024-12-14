@@ -22,7 +22,6 @@ async function loginUser(req, res, next) {
     
     // comprobar si el usuario existe
     const user = await selectUserByEmail(email);
-    console.log(user)
     // comprobar contraseña
     const passwordCheck = await bcrypt.compare(password, user.userPassword);
     // mensaje ambiguo para no dar detalles por seguridad

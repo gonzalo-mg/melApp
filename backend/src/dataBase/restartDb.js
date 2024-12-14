@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const bcrypt = require("bcrypt");
 const getPool = require("./getPool");
 
 async function restartDb() {
@@ -13,9 +13,8 @@ async function restartDb() {
     await pool.query(`DROP TABLE IF EXISTS users;`);
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users (
-            userId INT AUTO_INCREMENT PRIMARY KEY,
-            email VARCHAR(100) NOT NULL UNIQUE,
-            password VARCHAR(100) NOT NULL,
+            userEmail VARCHAR(100) NOT NULL UNIQUE PRIMARY KEY,
+            userPassword VARCHAR(100) NOT NULL,
             created DATETIME DEFAULT CURRENT_TIMESTAMP
         );  
     `);
@@ -32,8 +31,8 @@ async function restartDb() {
             street VARCHAR(100),
             addressNumber INT,
             notes VARCHAR(500),
-            userId INT,
-            FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+            userEmail VARCHAR(100),
+            FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
 	        created DATETIME DEFAULT CURRENT_TIMESTAMP
         );
     `);
@@ -50,8 +49,8 @@ async function restartDb() {
             street VARCHAR(100),
             addressNumber INT,
             notes VARCHAR(500),
-            userId INT,
-            FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+            userEmail VARCHAR(100),
+            FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
 	        created DATETIME DEFAULT CURRENT_TIMESTAMP
         );
     `);
@@ -71,9 +70,9 @@ async function restartDb() {
             endDate DATE,
             userIsOwner BOOLEAN NOT NULL DEFAULT TRUE,
             created DATETIME DEFAULT CURRENT_TIMESTAMP,
-            userId INT,
+            userEmail VARCHAR(100),
             clientId INT DEFAULT NULL,
-            FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+            FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE   CASCADE,
             FOREIGN KEY (clientId) REFERENCES clients(clientId) ON DELETE CASCADE,
             CHECK (userIsOwner = FALSE OR clientId IS NULL),
             CHECK (userIsOwner = TRUE OR clientId IS NOT NULL)
@@ -88,10 +87,10 @@ async function restartDb() {
             yearOfBirth YEAR NOT NULL,
             yearOfDeath YEAR,
             origin ENUM('captured', 'bred', 'bought') NOT NULL DEFAULT 'bought',
-            userId INT,
+            userEmail VARCHAR(100),
             mother INT,
             supplierId INT,
-            FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE,
+            FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
             FOREIGN KEY (mother) REFERENCES queens(queenId) ON DELETE CASCADE,
             FOREIGN KEY (supplierId) REFERENCES suppliers(supplierId) ON DELETE CASCADE,
             created DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -154,7 +153,7 @@ async function restartDb() {
 
     await pool.query(`
         INSERT INTO users
-            (email, password)
+            (userEmail, userPassword)
         VALUES
             ('abejamaya@email.com', '${await bcrypt.hash("abejamaya", 10)}'),
             ('sherlock@email.com', '${await bcrypt.hash("sherlock", 10)}');
@@ -164,22 +163,22 @@ async function restartDb() {
         INSERT INTO suppliers
             (supplierName, phone, email, web, locality, street, addressNumber, userEmail) 
         VALUES
-            ('proveedorTest', '123456789', 'proveedorTest@example.com', 'www.proveedorTest.com', 'Villa Bicho', 'Avenida de los Himenópteros', 1, 'maya@email.com');
+            ('proveedorTest', '123456789', 'proveedorTest@example.com', 'www.proveedorTest.com', 'Villa Bicho', 'Avenida de los Himenópteros', 1, 'abejamaya@email.com');
     `);
 
     await pool.query(`
         INSERT INTO clients
             (clientName, phone, email, locality, street, addressNumber, userEmail) 
         VALUES
-            ('clienteTest', '987654321', 'clienteTest@example.com', 'Arroyo de la Miel', 'Calle Polen', 2, 'maya@email.com');
+            ('clienteTest', '987654321', 'clienteTest@example.com', 'Arroyo de la Miel', 'Calle Polen', 2, 'abejamaya@email.com');
     `);
-    
+
     await pool.query(`
         INSERT INTO apiaries
             (apiaryName, locality, latitude, longitude, nomad, userIsOwner, vegetation,  hmToWater,	startDate, userEmail, clientId) 
         VALUES
-            ('apiarioTest', 'localityTest', 40.123456, -3.123456, FALSE, TRUE, 'flores silvestres', 0, '2020-01-01', 'maya@email.com', null),
-            ('apiarioNomadaTest', 'localityTest', 40.654321, -3.654321, TRUE, FALSE, 'naranjos', 1, '2021-01-01', 'maya@email.com', 1);
+            ('apiarioTest', 'localityTest', 40.123456, -3.123456, FALSE, TRUE, 'flores silvestres', 0, '2020-01-01', 'abejamaya@email.com', null),
+            ('apiarioNomadaTest', 'localityTest', 40.654321, -3.654321, TRUE, FALSE, 'naranjos', 1, '2021-01-01', 'abejamaya@email.com', 1);
     `);
 
     await pool.query(`
@@ -214,7 +213,7 @@ async function restartDb() {
             ('2021-01-01', 9, 1, 4, 2, 4, 8, 1, "castaños"),
             ('2022-01-01', 8, 0, 4, 2, 4, 8, 1, "naranjos");
     `);
-
+    console.log("Database apiculture reset to original status;");
   } catch (error) {
     console.error(error.message);
   } finally {

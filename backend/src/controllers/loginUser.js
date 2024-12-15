@@ -10,7 +10,7 @@ async function loginUser(req, res, next) {
 /**
   #swagger.auto = false
   #swagger.tags = ['Users']
-  #swagger.description = 'Login for registered users.'
+  #swagger.description = 'Process login requests.'
   #swagger.requestBody = {
     description: 'Request body containing users email and password (encrypted).',
     schema: { $ref: "#/definitions/userCredentialsSchema" }  
@@ -18,6 +18,13 @@ async function loginUser(req, res, next) {
   #swagger.responses[200] = {
     description: 'User logged in succesfully; sent JWT token to client.',
     schema: { $ref: "#/definitions/loginUser200ResponseSchema" }
+  }
+  #swagger.responses[400] = {
+    description: 'Login failed; credentials do not match data schema.',
+    schema: { $ref: "#/definitions/errorSchema" }
+  } 
+  #swagger.responses[401] = {
+    description: 'Login failed; credentials are not correct or do not exist.',
   } 
 */
   try {

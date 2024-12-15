@@ -44,7 +44,7 @@
         "tags": [
           "Users"
         ],
-        "description": "Login for registered users.",
+        "description": "Process login requests.",
         "responses": {
           "200": {
             "description": "User logged in succesfully; sent JWT token to client.",
@@ -60,6 +60,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Login failed; credentials are not correct or do not exist."
           }
         },
         "requestBody": {

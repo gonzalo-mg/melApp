@@ -61,8 +61,35 @@
               }
             }
           },
+          "400": {
+            "description": "Login failed; credentials do not match data schema.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorSchema"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorSchema"
+                }
+              }
+            }
+          },
           "401": {
-            "description": "Login failed; credentials are not correct or do not exist."
+            "description": "Login failed; credentials are not correct or do not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorSchema"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorSchema"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -121,6 +148,23 @@
         "required": [
           "message",
           "payload"
+        ],
+        "additionalProperties": false
+      },
+      "errorSchema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "number",
+            "format": "float"
+          }
+        },
+        "required": [
+          "message",
+          "statusCode"
         ],
         "additionalProperties": false
       }

@@ -20,11 +20,12 @@ async function loginUser(req, res, next) {
     schema: { $ref: "#/definitions/loginUser200ResponseSchema" }
   }
   #swagger.responses[400] = {
-    description: 'Login failed; credentials do not match data schema.',
+    description: 'Login failed: body does not match data schema.',
     schema: { $ref: "#/definitions/errorSchema" }
   } 
   #swagger.responses[401] = {
-    description: 'Login failed; credentials are not correct or do not exist.',
+    description: 'Login failed: credentials are incorrect or unregistered.',
+    schema: { $ref: "#/definitions/errorSchema" }
   } 
 */
   try {

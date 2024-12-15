@@ -1,3 +1,4 @@
+const { errorSchemaSwagger } = require("./dataValidationSchemas/errorSchema");
 const {
   loginUser200ResponseSchemaSwagger,
 } = require("./dataValidationSchemas/loginUser200ResponseSchema");
@@ -42,6 +43,7 @@ const doc = {
   "@definitions": {
     userCredentialsSchema: userCredentialsSchemaSwagger,
     loginUser200ResponseSchema: loginUser200ResponseSchemaSwagger,
+    errorSchema: errorSchemaSwagger
   },
 };
 

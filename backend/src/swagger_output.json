@@ -2,11 +2,17 @@
   "swagger": "2.0",
   "info": {
     "title": "API backend melApp",
-    "description": "Documentación de la API para melApp",
+    "description": "Documentación de la API backend para melApp",
     "version": "1.0.0"
   },
-  "host": "localhost:undefined",
+  "host": "localhost:8102",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "User management tasks"
+    }
+  ],
   "schemes": [
     "http"
   ],
@@ -33,30 +39,38 @@
     },
     "/login": {
       "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
+        "tags": [
+          "Users"
         ],
+        "description": "Login for registered users.",
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "requestBody": {}
       }
+    }
+  },
+  "definitions": {
+    "userCredentialsSchemaX": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ],
+      "additionalProperties": false
     }
   }
 }

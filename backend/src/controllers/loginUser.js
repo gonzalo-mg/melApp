@@ -1,25 +1,40 @@
-const userCredentialsSchema = require("../dataValidationSchemas/userCredentialsSchema");
+const {
+  userCredentialsSchema,
+} = require("../dataValidationSchemas/userCredentialsSchema");
 const selectUserByEmail = require("../repositories/selectUserByEmail");
 const createHttpError = require("../utilities/createHttpError");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-/**
- * Logs in the user.
- * @param {object} req - HTTP request object
- * @param {object} res - HTTP response object
- * @param {function} next - Next middleware function
- * @returns {object} - Session token as { userToken: `Bearer token` }
- * @throws {Error} - Throws an error if login fails
- */
 async function loginUser(req, res, next) {
+/**
+  #swagger.auto = false
+  #swagger.tags = ['Users']
+  #swagger.description = 'Process login requests.'
+  #swagger.requestBody = {
+    description: 'Request body containing users email and password (encrypted).',
+    schema: { $ref: "#/definitions/userCredentialsSchema" }  
+  }
+  #swagger.responses[200] = {
+    description: 'User logged in succesfully; sent JWT token to client.',
+    schema: { $ref: "#/definitions/loginUser200ResponseSchema" }
+  }
+  #swagger.responses[400] = {
+    description: 'Login failed: body does not match data schema.',
+    schema: { $ref: "#/definitions/errorSchema" }
+  } 
+  #swagger.responses[401] = {
+    description: 'Login failed: credentials are incorrect or unregistered.',
+    schema: { $ref: "#/definitions/errorSchema" }
+  } 
+*/
   try {
     // validar peticion
     await userCredentialsSchema.validateAsync(req.body);
 
     // recuperar datos peticion
     const { email, password } = req.body;
-    
+
     // comprobar si el usuario existe
     const user = await selectUserByEmail(email);
     // comprobar contraseña

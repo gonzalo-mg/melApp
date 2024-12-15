@@ -1,32 +1,34 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "API backend melApp",
     "description": "Documentación de la API backend para melApp",
     "version": "1.0.0"
   },
-  "host": "localhost:8102",
-  "basePath": "/",
+  "servers": [
+    {
+      "url": "http://localhost:8105/"
+    }
+  ],
   "tags": [
     {
       "name": "Users",
-      "description": "User management tasks"
+      "description": "User management tasks."
+    },
+    {
+      "name": "Suppliers",
+      "description": "Suppliers management tasks; users only have access to the suppliers they have registered themselves."
+    },
+    {
+      "name": "Clients",
+      "description": "Clients management tasks; users only have access to the clients they have registered themselves."
+    },
+    {
+      "name": "Harvests",
+      "description": "Harvests management tasks; users only have access to their own harvests; harvests record the state of the beehive and apiary at the actual moment of harvesting, and do not reflect changes suffered afterwards."
     }
   ],
-  "schemes": [
-    "http"
-  ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/harvests": {
       "get": {
         "description": "",
@@ -45,32 +47,80 @@
         "description": "Login for registered users.",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "User logged in succesfully; sent JWT token to client.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loginUser200ResponseSchema"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/loginUser200ResponseSchema"
+                }
+              }
+            }
           }
         },
-        "requestBody": {}
+        "requestBody": {
+          "description": "Request body containing users email and password (encrypted).",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userCredentialsSchema"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/userCredentialsSchema"
+              }
+            }
+          }
+        }
       }
     }
   },
-  "definitions": {
-    "userCredentialsSchemaX": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string",
-          "format": "email"
+  "components": {
+    "schemas": {
+      "userCredentialsSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 100
+          }
         },
-        "password": {
-          "type": "string",
-          "minLength": 8,
-          "maxLength": 100
-        }
+        "required": [
+          "email",
+          "password"
+        ],
+        "additionalProperties": false
       },
-      "required": [
-        "email",
-        "password"
-      ],
-      "additionalProperties": false
+      "loginUser200ResponseSchema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "userToken": {}
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "message",
+          "payload"
+        ],
+        "additionalProperties": false
+      }
     }
   }
 }

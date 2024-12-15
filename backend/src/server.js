@@ -12,17 +12,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", () => {
-  console.log("Raíz del servidor");
-});
-
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.get("/harvests", getAllHarvestsOfUser);
 
-app.post("/login", loginUser
-
-);
+app.post("/login", loginUser);
 
 app.use(errorHandler);
 

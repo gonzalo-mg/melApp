@@ -1,3 +1,4 @@
+const idNumSchema = require("../dataValidationSchemas/idNum");
 const selectHarvestById = require("../repositories/selectHarvestById");
 
 async function getHarvestById(req, res, next) {
@@ -22,6 +23,9 @@ async function getHarvestById(req, res, next) {
   }
 */
   try {
+    //validar q el id es de naturaleza numerica
+    await idNumSchema.validateAsync(parseInt(req.params.harvestId, 10))
+
     const [harvest] = await selectHarvestById(req.params.harvestId, req.headers.useremail);
     
     res.status(200).send(harvest);

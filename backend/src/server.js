@@ -18,6 +18,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.post("/login", loginUser);
 
 app.get("/harvests", authValidation, getAllHarvestsOfUser);
+app.get("/harvests/:id", authValidation, getAllHarvestsOfUser);
 
 app.use(errorHandler);
 

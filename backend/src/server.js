@@ -27,6 +27,7 @@ const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
 const getHarvestById = require("./controllers/getHarvestById");
 
 const errorHandler = require("./middlewares/errorHandler");
+const getApiaryById = require("./controllers/getApiaryById");
 
 // middlewares utilitarios
 app.use(express.json());
@@ -45,6 +46,7 @@ app.get("/clients", authValidation, getAllClientsOfUser);
 app.get("/clients/:clientId", authValidation, getClientById);
 // apiaries
 app.get("/apiaries", authValidation, getAllApiariesOfUser);
+app.get("/apiaries/:apiaryId", authValidation, getApiaryById)
 // harvests
 app.get("/harvests", authValidation, getAllHarvestsOfUser);
 app.get("/harvests/:harvestId", authValidation, getHarvestById);

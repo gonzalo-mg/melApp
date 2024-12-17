@@ -14,7 +14,7 @@ async function getAllSuppliersOfUser(req, res, next) {
   }
 */
   try {
-    const suppliers = await selectAllSuppliersOfUserByEmail(req.headers.useremail);
+    const suppliers = await selectAllSuppliersOfUserByEmail(req.userEmail);
 
     res.status(200).send(suppliers);
   } catch (error) {

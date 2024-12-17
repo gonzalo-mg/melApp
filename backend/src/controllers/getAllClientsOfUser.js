@@ -14,7 +14,7 @@ async function getAllClientsOfUser(req, res, next) {
   }
 */
   try {
-    const clients = await selectAllClientsOfUserByEmail(req.headers.useremail);
+    const clients = await selectAllClientsOfUserByEmail(req.userEmail);
 
     res.status(200).send(clients);
   } catch (error) {

@@ -28,8 +28,8 @@ const authValidation = (req, res, next) => {
       createError("Invalid token", 401);
     }
 
-    // crear propiedad de autenticacion en el objeto de peticion para el resto de middlewares y endpoints; darle los datos del token
-    req.auth = tokenPayload;
+    // crear propiedad de autenticacion en el objeto de peticion para el resto de middlewares y endpoints
+    req.userEmail = tokenPayload.userEmail;
     next();
   } catch (error) {
     next(error);

@@ -9,14 +9,12 @@ async function getAllSuppliersOfUser(req, res, next) {
     "bearerAuth": []
   }]
     
-  #swagger.parameters['$ref'] = ["#/components/parameters/userEmailHeader"]
-
   #swagger.responses[200] = {
     description: 'Sent suppliers (array of objects) to client.',
   }
 */
   try {
-    const suppliers = await selectAllSuppliersOfUserByEmail(req.headers.useremail);
+    const suppliers = await selectAllSuppliersOfUserByEmail(req.userEmail);
 
     res.status(200).send(suppliers);
   } catch (error) {

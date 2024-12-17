@@ -36,7 +36,7 @@ app.post("/login", loginUser);
 // suppliers
 app.get("/suppliers", authValidation, getAllSuppliersOfUser);
 // clients
-app.get("/clients", authValidation, getAllClientssOfUser);
+app.get("/clients", authValidation, getAllClientsOfUser);
 // harvests
 app.get("/harvests", authValidation, getAllHarvestsOfUser);
 app.get("/harvests/:harvestId", authValidation, getHarvestById);

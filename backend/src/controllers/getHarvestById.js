@@ -10,8 +10,6 @@ async function getHarvestById(req, res, next) {
     "bearerAuth": []
   }]
     
-  #swagger.parameters['$ref'] = ["#/components/parameters/userEmailHeader"]
-
   #swagger.parameters['harvestId] = {
     in: 'path',                                           
     required: 'true'
@@ -25,7 +23,7 @@ async function getHarvestById(req, res, next) {
     //validar q el id es de naturaleza numerica
     await idNumSchema.validateAsync(parseInt(req.params.harvestId, 10))
 
-    const [harvest] = await selectHarvestById(req.params.harvestId, req.headers.useremail);
+    const [harvest] = await selectHarvestById(req.params.harvestId, req.userEmail);
     
     res.status(200).send(harvest);
   } catch (error) {

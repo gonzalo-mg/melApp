@@ -48,7 +48,7 @@ async function loginUser(req, res, next) {
     }
 
     // si credenciales ok asignar token
-    const tokenPayload = { user: user.email };
+    const tokenPayload = { userEmail: email };
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });

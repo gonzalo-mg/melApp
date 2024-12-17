@@ -16,6 +16,7 @@ const authValidation = require("./middlewares/authValidation");
 const loginUser = require("./controllers/loginUser");
 // suppliers
 const getAllSuppliersOfUser = require("./controllers/getAllSuppliersOfUser");
+const getSupplierById = require("./controllers/getSupplierById");
 // clients
 const getAllClientsOfUser = require("./controllers/getAllClientsOfUser");
 // harvests
@@ -23,6 +24,7 @@ const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
 const getHarvestById = require("./controllers/getHarvestById");
 
 const errorHandler = require("./middlewares/errorHandler");
+
 
 // middlewares utilitarios
 app.use(express.json());
@@ -35,6 +37,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.post("/login", loginUser);
 // suppliers
 app.get("/suppliers", authValidation, getAllSuppliersOfUser);
+app.get("/suppliers/:supplierId", authValidation, getSupplierById);
 // clients
 app.get("/clients", authValidation, getAllClientsOfUser);
 // harvests

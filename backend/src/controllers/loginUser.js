@@ -24,7 +24,7 @@ async function loginUser(req, res, next) {
     schema: { $ref: "#/definitions/errorSchema" }
   } 
   #swagger.responses[401] = {
-    description: 'Login failed: credentials are incorrect or unregistered.',
+    description: 'Login failed: user and/or password are incorrect or unregistered.',
     schema: { $ref: "#/definitions/errorSchema" }
   } 
 */

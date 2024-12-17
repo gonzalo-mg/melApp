@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const { errorSchemaSwagger } = require("./dataValidationSchemas/errorSchema");
 const {
   loginUser200ResponseSchemaSwagger,
@@ -6,7 +7,7 @@ const {
   userCredentialsSchemaSwagger,
 } = require("./dataValidationSchemas/userCredentialsSchema");
 
-const swaggerAutogen = require("swagger-autogen")({openapi: '3.0.0'});
+const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
 require("dotenv").config();
 const { PORT } = process.env;
 
@@ -43,7 +44,27 @@ const doc = {
   "@definitions": {
     userCredentialsSchema: userCredentialsSchemaSwagger,
     loginUser200ResponseSchema: loginUser200ResponseSchemaSwagger,
-    errorSchema: errorSchemaSwagger
+    errorSchema: errorSchemaSwagger,
+  },
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        description: "JWT token",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        required: "true",
+      },
+    },
+    parameters: {
+      userEmailHeader: {
+        in: "header",
+        name: "userEmail",
+        description: "Current user email",
+        schema: { type: "string" },
+        required: "true",
+      },
+    },
   },
 };
 

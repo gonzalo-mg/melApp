@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8105/"
+      "url": "http://localhost:8131/"
     }
   ],
   "tags": [
@@ -29,16 +29,6 @@
     }
   ],
   "paths": {
-    "/harvests": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/login": {
       "post": {
         "tags": [
@@ -62,7 +52,7 @@
             }
           },
           "400": {
-            "description": "Login failed; credentials do not match data schema.",
+            "description": "Login failed: body does not match data schema.",
             "content": {
               "application/json": {
                 "schema": {
@@ -77,7 +67,7 @@
             }
           },
           "401": {
-            "description": "Login failed; credentials are not correct or do not exist.",
+            "description": "Login failed: user and/or password are incorrect or unregistered.",
             "content": {
               "application/json": {
                 "schema": {
@@ -108,9 +98,59 @@
           }
         }
       }
+    },
+    "/harvests": {
+      "get": {
+        "tags": [
+          "Harvests"
+        ],
+        "description": "Get all harvests of current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/userEmailHeader"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent harvests array to client."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "JWT token",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "required": "true"
+      }
+    },
+    "parameters": {
+      "userEmailHeader": {
+        "in": "header",
+        "name": "userEmail",
+        "description": "Current user email",
+        "schema": {
+          "type": "string"
+        },
+        "required": "true"
+      }
+    },
     "schemas": {
       "userCredentialsSchema": {
         "type": "object",

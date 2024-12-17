@@ -23,7 +23,7 @@ const authValidation = (req, res, next) => {
     let tokenPayload;
     try {
       tokenPayload = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(tokenPayload)
+
     } catch (error) {
       createError("Invalid token", 401);
     }

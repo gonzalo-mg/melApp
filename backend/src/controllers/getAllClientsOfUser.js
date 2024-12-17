@@ -9,8 +9,6 @@ async function getAllClientsOfUser(req, res, next) {
     "bearerAuth": []
   }]
     
-  #swagger.parameters['$ref'] = ["#/components/parameters/userEmailHeader"]
-
   #swagger.responses[200] = {
     description: 'Sent clients (array of objects) to client.',
   }

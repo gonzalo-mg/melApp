@@ -10,8 +10,6 @@ async function getHarvestById(req, res, next) {
     "bearerAuth": []
   }]
     
-  #swagger.parameters['$ref'] = ["#/components/parameters/userEmailHeader"]
-
   #swagger.parameters['harvestId] = {
     in: 'path',                                           
     required: 'true'

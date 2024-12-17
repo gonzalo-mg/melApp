@@ -5,9 +5,10 @@ const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger_output.json");
 const errorHandler = require("./middlewares/errorHandler");
+const authValidation = require("./middlewares/authValidation");
 const loginUser = require("./controllers/loginUser");
 const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
-const authValidation = require("./middlewares/authValidation");
+const getHarvestById = require("./controllers/getHarvestById");
 
 const app = express();
 app.use(express.json());
@@ -18,7 +19,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.post("/login", loginUser);
 
 app.get("/harvests", authValidation, getAllHarvestsOfUser);
-app.get("/harvests/:id", authValidation, getHarvestsById);
+
+app.get("/harvests/:harvestId", authValidation, getHarvestById);
 
 app.use(errorHandler);
 

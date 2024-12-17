@@ -12,14 +12,13 @@ async function getAllHarvestsOfUser(req, res, next) {
   #swagger.parameters['$ref'] = ["#/components/parameters/userEmailHeader"]
 
   #swagger.responses[200] = {
-    description: 'Sent harvests array to client.',
+    description: 'Sent harvests (array of objects) to client.',
   }
 */
   try {
-    let userEmail = "abejamaya@email.com";
-    const harvests = await selectAllHarvestsOfUserByEmail(userEmail);
+    const harvests = await selectAllHarvestsOfUserByEmail(req.headers.useremail);
 
-    res.status(200).send({ harvests });
+    res.status(200).send(harvests);
   } catch (error) {
     next(error);
   }

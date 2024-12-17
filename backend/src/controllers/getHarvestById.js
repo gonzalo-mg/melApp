@@ -18,15 +18,13 @@ async function getHarvestById(req, res, next) {
   }
 
   #swagger.responses[200] = {
-    description: 'Sent harvests array to client.',
+    description: 'Sent harvest (object) to client.',
   }
 */
   try {
-    const userEmail = req.header.userEmail;
-    const { id } = req.params;
-    const harvest = await selectHarvestById(userEmail);
-
-    res.status(200).send({ harvests });
+    const [harvest] = await selectHarvestById(req.params.harvestId, req.headers.useremail);
+    
+    res.status(200).send(harvest);
   } catch (error) {
     next(error);
   }

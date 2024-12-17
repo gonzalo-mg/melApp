@@ -1,11 +1,11 @@
 const getPool = require("../dataBase/getPool");
 
-async function selectHarvestById(id, userEmail) {
+async function selectHarvestById(harvestId, userEmail) {
   const pool = getPool();
 
-  const sqlCode = 'select * form harvest where harvestIs = ? and apiaryId in (select apiaryId from apiaries where userEmail = ?'
+  const [harvest] = await pool.query("select * from harvests where harvestId = ? and apiaryId in (select apiaryId from apiaries where userEmail = ?)", [harvestId, userEmail]);
 
-  return await pool.query(sqlCode, [id, userEmail]);
+  return harvest;
 }
 
 module.exports = selectHarvestById;

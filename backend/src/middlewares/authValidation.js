@@ -17,14 +17,15 @@ const authValidation = (req, res, next) => {
     const [type, token] = authorization.split(" ");
 
     if (type !== "Bearer" || !token) {
-      createHttpError("Invalid token format", 400);
+      createHttpError("Invalid token format", 401);
     }
 
     let tokenPayload;
     try {
       tokenPayload = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(tokenPayload)
     } catch (error) {
-      createError("Invalid token", 400);
+      createError("Invalid token", 401);
     }
 
     // crear propiedad de autenticacion en el objeto de peticion para el resto de middlewares y endpoints; darle los datos del token

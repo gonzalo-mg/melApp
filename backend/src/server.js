@@ -7,6 +7,7 @@ const swaggerFile = require("./swagger_output.json");
 const errorHandler = require("./middlewares/errorHandler");
 const loginUser = require("./controllers/loginUser");
 const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
+const authValidation = require("./middlewares/authValidation");
 
 const app = express();
 app.use(express.json());
@@ -14,9 +15,9 @@ app.use(cors());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.get("/harvests", getAllHarvestsOfUser);
-
 app.post("/login", loginUser);
+
+app.get("/harvests", authValidation, getAllHarvestsOfUser);
 
 app.use(errorHandler);
 

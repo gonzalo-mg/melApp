@@ -2,7 +2,7 @@ const selectAllHarvestsOfUserByEmail = require("../repositories/selectAllHarvest
 
 async function getAllHarvestsOfUser(req, res, next) {
   try {
-    let userEmail = "maya@email.com";
+    let userEmail = "abejamaya@email.com";
     const harvests = await selectAllHarvestsOfUserByEmail(userEmail);
 
     res.status(200).send({ harvests });

@@ -16,6 +16,8 @@ const authValidation = require("./middlewares/authValidation");
 const loginUser = require("./controllers/loginUser");
 // suppliers
 const getAllSuppliersOfUser = require("./controllers/getAllSuppliersOfUser");
+// clients
+const getAllClientsOfUser = require("./controllers/getAllClientsOfUser");
 // harvests
 const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
 const getHarvestById = require("./controllers/getHarvestById");
@@ -33,6 +35,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.post("/login", loginUser);
 // suppliers
 app.get("/suppliers", authValidation, getAllSuppliersOfUser);
+// clients
+app.get("/clients", authValidation, getAllClientsOfUser);
 // harvests
 app.get("/harvests", authValidation, getAllHarvestsOfUser);
 app.get("/harvests/:harvestId", authValidation, getHarvestById);

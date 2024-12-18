@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 
 async function loginUser(req, res, next) {
 /**
-  #swagger.auto = false
   #swagger.tags = ['Users']
   #swagger.description = 'Processes login requests.'
   #swagger.requestBody = {
@@ -16,7 +15,7 @@ async function loginUser(req, res, next) {
     schema: { $ref: "#/definitions/userCredentials" }  
   }
   #swagger.responses[200] = {
-    description: 'Login succesfull; sent JWT token to client.',
+    description: 'Login succesful: authorization token available in payload.',
     schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
@@ -40,7 +39,7 @@ async function loginUser(req, res, next) {
     // mensaje ambiguo para no dar detalles por seguridad
     if (!user || !passwordCheck) {
       createHttpError(
-        "Incorrect password or email. Try again. If the problem continues contact and administrator.",
+        "Login failed: user and/or password are incorrect or unregistered.",
         401
       );
     }
@@ -52,7 +51,7 @@ async function loginUser(req, res, next) {
     });
 
     res.status(200).send({
-      message: "Login succesfull; sent JWT token to client",
+      message: "Login succesful: authorization token available in payload.",
       payload: { userToken: `Bearer ${token}` },
     });
   } catch (error) {

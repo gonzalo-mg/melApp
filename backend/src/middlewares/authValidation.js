@@ -2,14 +2,22 @@ const jwt = require("jsonwebtoken");
 const createHttpError = require("../utilities/createHttpError");
 
 const authValidation = (req, res, next) => {
+  /**
+  #swagger.tags = ['Users']
+  #swagger.description = 'Check if request has an authorization header with a valid token; if request is authorized, create userEmail request property to identify the user, and proceed to next controller.'
+  
+  #swagger.responses[401] = {
+    description: 'Authorization denied: invalid or missing token.'
+  } 
+*/
   try {
     // recuperar header authorization
     const { authorization } = req.headers;
 
     if (!authorization) {
       createHttpError(
-        "Authorization header missing; can not proceed without it",
-        400
+        "Authorization header missing",
+        401
       );
     }
 
@@ -25,7 +33,7 @@ const authValidation = (req, res, next) => {
       tokenPayload = jwt.verify(token, process.env.JWT_SECRET);
 
     } catch (error) {
-      createError("Invalid token", 401);
+      createHttpError("Invalid token", 401);
     }
 
     // crear propiedad de autenticacion en el objeto de peticion para el resto de middlewares y endpoints

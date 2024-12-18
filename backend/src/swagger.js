@@ -36,6 +36,21 @@ const doc = {
         "Clients management tasks; users only have access to the clients they have registered themselves.",
     },
     {
+      name: "Apiaries",
+      description:
+        "Apiaries management tasks; users only have access to their own apiaries.",
+    },
+    {
+      name: "Queens",
+      description:
+        "Queen bees management tasks; users only have access to their own queens.",
+    },
+    {
+      name: "beehives",
+      description:
+        "Beehives management tasks; users only have access to their own beehives.",
+    },
+    {
       name: "Harvests",
       description:
         "Harvests management tasks; users only have access to their own harvests; harvests record the state of the beehive and apiary at the actual moment of harvesting, and do not reflect changes suffered afterwards.",

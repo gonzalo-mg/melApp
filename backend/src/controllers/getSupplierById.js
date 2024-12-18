@@ -10,7 +10,6 @@ async function getSupplierById(req, res, next) {
     "bearerAuth": []
   }]
 
-
   #swagger.responses[200] = {
     description: 'Supplier recovered as object available in payload.',
     schema: { $ref: "#/definitions/response200" }

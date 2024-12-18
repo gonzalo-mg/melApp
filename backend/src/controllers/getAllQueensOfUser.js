@@ -10,13 +10,17 @@ async function getAllQueensOfUser(req, res, next) {
   }]
     
   #swagger.responses[200] = {
-    description: 'Sent queens (array of objects) to client.',
+    description: 'Queens recovered as array of objects available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
 */
   try {
     const queens = await selectAllQueensOfUserByEmail(req.userEmail);
 
-    res.status(200).send(queens);
+    res.status(200).send({
+      message: "Queens recovered as array of objects available in payload.",
+      payload: queens,
+    });
   } catch (error) {
     next(error);
   }

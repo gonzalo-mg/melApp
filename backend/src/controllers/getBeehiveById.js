@@ -10,28 +10,27 @@ async function getBeehiveById(req, res, next) {
     "bearerAuth": []
   }]
     
-  #swagger.parameters['beehiveId] = {
-    in: 'path',                                           
-    required: 'true'
-  }
-
   #swagger.responses[200] = {
-    description: 'Sent beehive (object) to client.',
+    description: 'Beehive recovered as object available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
-    $ref: "#/definitions/validationErrorResponse"
+    $ref: "#/schemas/validationErrorResponse"
   }
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(parseInt(req.params.beehiveId, 10));
+    await idNumSchema.validateAsync(req.params.apiaryId);
 
     const [beehive] = await selectBeehiveById(
       req.params.beehiveId,
       req.userEmail
     );
 
-    res.status(200).send(beehive);
+    res.status(200).send({
+      message: "Beehive recovered as object available in payload.",
+      payload: beehive,
+    });
   } catch (error) {
     next(error);
   }

@@ -12,14 +12,14 @@ async function registerUser(req, res, next) {
   #swagger.description = 'Register a new user.'
   #swagger.requestBody = {
     description: 'Must provide email and password (encrypted).',
-    schema: { $ref: "#/definitions/userCredentialsSchema" }  
+    schema: { $ref: "#/definitions/userCredentials" }  
   }
   #swagger.responses[201] = {
     description: 'New user succesfully registered; sent user credentials to client.',
-    schema: { $ref: "#/definitions/response200Schema" }
+    schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
-    $ref: "#/definitions/validationErrorResponse"
+    $ref: "#/schemas/validationErrorResponse"
   } 
   #swagger.responses[409] = {
     description: 'Registration failed: email address already registered.',

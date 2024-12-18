@@ -10,7 +10,8 @@ async function getAllApiariesOfUser(req, res, next) {
   }]
     
   #swagger.responses[200] = {
-    description: 'Sent apiaries (array of objects) to client.',
+    description: 'Apiaries recovered as array of objects available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
 */
   try {

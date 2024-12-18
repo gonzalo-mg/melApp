@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8014/"
+      "url": "http://localhost:8049/"
     }
   ],
   "tags": [
@@ -32,7 +32,7 @@
       "description": "Queen bees management tasks; users only have access to their own queens."
     },
     {
-      "name": "beehives",
+      "name": "Beehives",
       "description": "Beehives management tasks; users only have access to their own beehives."
     },
     {
@@ -53,34 +53,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response20Schema"
+                  "$ref": "#/components/schemas/response200"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/response20Schema"
+                  "$ref": "#/components/schemas/response200"
                 }
               }
             }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           },
           "401": {
-            "description": "Login failed: user and/or password are incorrect or unregistered.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorSchema"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorSchema"
-                }
-              }
-            }
+            "description": "Login failed: user and/or password are incorrect or unregistered."
           }
         },
         "requestBody": {
@@ -88,12 +76,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/userCredentialsSchema"
+                "$ref": "#/components/schemas/userCredentials"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/userCredentialsSchema"
+                "$ref": "#/components/schemas/userCredentials"
               }
             }
           }
@@ -112,18 +100,18 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/response200Schema"
+                  "$ref": "#/components/schemas/response200"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/response200Schema"
+                  "$ref": "#/components/schemas/response200"
                 }
               }
             }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           },
           "409": {
@@ -135,12 +123,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/userCredentialsSchema"
+                "$ref": "#/components/schemas/userCredentials"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/userCredentialsSchema"
+                "$ref": "#/components/schemas/userCredentials"
               }
             }
           }
@@ -164,7 +152,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent suppliers (array of objects) to client."
+            "description": "Suppliers recovered as array of objects available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -179,7 +179,7 @@
         "tags": [
           "Suppliers"
         ],
-        "description": "Get supplier of current user.",
+        "description": "Get a specific supplier of current user.",
         "parameters": [
           {
             "name": "supplierId",
@@ -199,10 +199,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent supplier (object) to client."
+            "description": "Supplier recovered as object available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           }
         },
@@ -230,7 +242,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent clients (array of objects) to client."
+            "description": "Clients recovered as array of objects available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -265,10 +289,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent client (object) to client."
+            "description": "Client recovered as object available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           }
         },
@@ -296,7 +332,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent apiaries (array of objects) to client."
+            "description": "Apiaries recovered as array of objects available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -331,10 +379,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent apiary (object) to client."
+            "description": "Apiary recovered as object available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           }
         },
@@ -362,7 +422,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent queens (array of objects) to client."
+            "description": "Queens recovered as array of objects available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -397,10 +469,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent queen (object) to client."
+            "description": "Queen recovered as object available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           }
         },
@@ -428,7 +512,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent beehives (array of objects) to client."
+            "description": "Beehives recovered as array of objects available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -463,10 +559,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent beehive (object) to client."
+            "description": "Beehive recovered as object available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           }
         },
@@ -494,7 +602,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent harvests (array of objects) to client."
+            "description": "Harvests recovered as array of objects available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -529,10 +649,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Sent harvest (object) to client."
+            "description": "Harvest recovered as object available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
           },
           "400": {
-            "$ref": "#/components/schemas/validationErrorResponse",
+            "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
           }
         },
@@ -545,6 +677,16 @@
     }
   },
   "components": {
+    "parameters": {
+      "numericalIdParameter": {
+        "description": "Identification number",
+        "in": "path",
+        "required": "true",
+        "schema": {
+          "$ref": "#/definitions/numericalId"
+        }
+      }
+    },
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
@@ -554,19 +696,8 @@
         "required": "true"
       }
     },
-    "parameters": {
-      "userEmailHeader": {
-        "in": "header",
-        "name": "userEmail",
-        "description": "Current user email",
-        "schema": {
-          "type": "string"
-        },
-        "required": "true"
-      }
-    },
     "schemas": {
-      "userCredentialsSchema": {
+      "userCredentials": {
         "type": "object",
         "properties": {
           "email": {
@@ -585,7 +716,7 @@
         ],
         "additionalProperties": false
       },
-      "response200Schema": {
+      "response200": {
         "type": "object",
         "properties": {
           "message": {
@@ -599,7 +730,7 @@
         },
         "additionalProperties": false
       },
-      "errorSchema": {
+      "errors": {
         "type": "object",
         "properties": {
           "message": {
@@ -616,9 +747,15 @@
         ],
         "additionalProperties": false
       },
-      "validationErrorResponse": {
-        "description": "Validation error - Request data does not comply with expected data schema"
+      "numericalId": {
+        "type": "string",
+        "pattern": "^\\d+$"
       }
+    }
+  },
+  "schemas": {
+    "validationErrorResponse": {
+      "description": "Validation error - Request data does not comply with expected data schema"
     }
   }
 }

@@ -9,26 +9,25 @@ async function getClientById(req, res, next) {
   #swagger.security = [{
     "bearerAuth": []
   }]
-    
-  #swagger.parameters['clientId] = {
-    in: 'path',                                           
-    required: 'true'
-  }
 
   #swagger.responses[200] = {
-    description: 'Sent client (object) to client.',
+    description: 'Client recovered as object available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
-  #swagger.responses[400] = {
-    $ref: "#/definitions/validationErrorResponse"
+ #swagger.responses[400] = {
+    $ref: "#/schemas/validationErrorResponse"
   }  
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(parseInt(req.params.clientId, 10))
+    await idNumSchema.validateAsync(req.params.apiaryId);
 
     const [client] = await selectClientById(req.params.clientId, req.userEmail);
-    
-    res.status(200).send(client);
+
+    res.status(200).send({
+      message: "Client recovered as object available in payload.",
+      paylaod: client,
+    });
   } catch (error) {
     next(error);
   }

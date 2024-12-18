@@ -10,13 +10,17 @@ async function getAllSuppliersOfUser(req, res, next) {
   }]
     
   #swagger.responses[200] = {
-    description: 'Sent suppliers (array of objects) to client.',
+    description: 'Suppliers recovered as array of objects available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
 */
   try {
     const suppliers = await selectAllSuppliersOfUserByEmail(req.userEmail);
 
-    res.status(200).send(suppliers);
+    res.status(200).send({
+      message: "Suppliers recovered as array of objects available in payload.",
+      payload: suppliers,
+    });
   } catch (error) {
     next(error);
   }

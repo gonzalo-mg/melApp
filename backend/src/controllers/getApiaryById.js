@@ -1,4 +1,4 @@
-const idNumSchema = require("../dataValidationSchemas/idNum");
+const { idNumSchema } = require("../dataValidationSchemas/idNum");
 const selectApiaryById = require("../repositories/selectApiaryById");
 
 async function getApiaryById(req, res, next) {
@@ -10,25 +10,24 @@ async function getApiaryById(req, res, next) {
     "bearerAuth": []
   }]
     
-  #swagger.parameters['apiaryId] = {
-    in: 'path',                                           
-    required: 'true'
-  }
-
   #swagger.responses[200] = {
-    description: 'Sent apiary (object) to client.',
+    description: 'Apiary recovered as object available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
-    $ref: "#/definitions/validationErrorResponse"
+    $ref: "#/schemas/validationErrorResponse"
   }
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(parseInt(req.params.apiaryId, 10))
+    await idNumSchema.validateAsync(req.params.apiaryId);
 
     const [apiary] = await selectApiaryById(req.params.apiaryId, req.userEmail);
-    
-    res.status(200).send(apiary);
+
+    res.status(200).send({
+      message: "Apiary recovered as object available in payload.",
+      payload: apiary,
+    });
   } catch (error) {
     next(error);
   }

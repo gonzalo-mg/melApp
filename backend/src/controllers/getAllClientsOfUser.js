@@ -1,3 +1,4 @@
+const { message } = require("../dataValidationSchemas/idNum");
 const selectAllClientsOfUserByEmail = require("../repositories/selectAllClientsOfUserByEmail");
 
 async function getAllClientsOfUser(req, res, next) {
@@ -10,13 +11,17 @@ async function getAllClientsOfUser(req, res, next) {
   }]
     
   #swagger.responses[200] = {
-    description: 'Sent clients (array of objects) to client.',
+    description: 'Clients recovered as array of objects available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
 */
   try {
     const clients = await selectAllClientsOfUserByEmail(req.userEmail);
 
-    res.status(200).send(clients);
+    res.status(200).send({
+      message: "Clients recovered as array of objects available in payload.",
+      payload: clients,
+    });
   } catch (error) {
     next(error);
   }

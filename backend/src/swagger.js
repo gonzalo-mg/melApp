@@ -6,6 +6,7 @@ const {
 const {
   userCredentialsSchemaSwagger,
 } = require("./dataValidationSchemas/userCredentialsSchema");
+const { numericalIdSwagger } = require("./dataValidationSchemas/idNum");
 
 const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
 require("dotenv").config();
@@ -46,7 +47,7 @@ const doc = {
         "Queen bees management tasks; users only have access to their own queens.",
     },
     {
-      name: "beehives",
+      name: "Beehives",
       description:
         "Beehives management tasks; users only have access to their own beehives.",
     },
@@ -57,30 +58,32 @@ const doc = {
     },
   ],
   "@definitions": {
-    userCredentialsSchema: userCredentialsSchemaSwagger,
-    response200Schema: response200SchemaSwagger,
-    errorSchema: errorSchemaSwagger,
+    userCredentials: userCredentialsSchemaSwagger,
+    response200: response200SchemaSwagger,
+    errors: errorSchemaSwagger,
+    numericalId: numericalIdSwagger,
+  },
+  schemas: {
     validationErrorResponse: {
       description:
         "Validation error - Request data does not comply with expected data schema",
     },
   },
   components: {
+    parameters: {
+      numericalIdParameter: {
+        description: 'Identification number',
+        in: 'path',                                           
+        required: 'true',
+        schema: { $ref: "#/definitions/numericalId" },
+      }
+    },
     securitySchemes: {
       bearerAuth: {
         type: "http",
         description: "JWT token",
         scheme: "bearer",
         bearerFormat: "JWT",
-        required: "true",
-      },
-    },
-    parameters: {
-      userEmailHeader: {
-        in: "header",
-        name: "userEmail",
-        description: "Current user email",
-        schema: { type: "string" },
         required: "true",
       },
     },

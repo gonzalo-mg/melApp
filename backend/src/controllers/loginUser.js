@@ -13,18 +13,17 @@ async function loginUser(req, res, next) {
   #swagger.description = 'Processes login requests.'
   #swagger.requestBody = {
     description: 'Must provide email and password (encrypted).',
-    schema: { $ref: "#/definitions/userCredentialsSchema" }  
+    schema: { $ref: "#/definitions/userCredentials" }  
   }
   #swagger.responses[200] = {
     description: 'Login succesfull; sent JWT token to client.',
-    schema: { $ref: "#/definitions/response20Schema" }
+    schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
-    $ref: "#/definitions/validationErrorResponse"
+    $ref: "#/schemas/validationErrorResponse"
   }
   #swagger.responses[401] = {
-    description: 'Login failed: user and/or password are incorrect or unregistered.',
-    schema: { $ref: "#/definitions/errorSchema" }
+    description: 'Login failed: user and/or password are incorrect or unregistered.'
   } 
 */
   try {

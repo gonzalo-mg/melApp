@@ -10,13 +10,17 @@ async function getAllHarvestsOfUser(req, res, next) {
   }]
     
   #swagger.responses[200] = {
-    description: 'Sent harvests (array of objects) to client.',
+    description: 'Harvests recovered as array of objects available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
 */
   try {
     const harvests = await selectAllHarvestsOfUserByEmail(req.userEmail);
 
-    res.status(200).send(harvests);
+    res.status(200).send({
+      message: "Harvests recovered as array of objects available in payload.",
+      payload: harvests,
+    });
   } catch (error) {
     next(error);
   }

@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 
 async function loginUser(req, res, next) {
 /**
-  #swagger.auto = false
   #swagger.tags = ['Users']
   #swagger.description = 'Processes login requests.'
   #swagger.requestBody = {

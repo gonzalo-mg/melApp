@@ -60,6 +60,10 @@ const doc = {
     userCredentialsSchema: userCredentialsSchemaSwagger,
     response200Schema: response200SchemaSwagger,
     errorSchema: errorSchemaSwagger,
+    validationErrorResponse: {
+      description:
+        "Validation error - Request data does not comply with expected data schema",
+    },
   },
   components: {
     securitySchemes: {

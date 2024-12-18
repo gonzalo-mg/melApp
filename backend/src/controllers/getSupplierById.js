@@ -18,6 +18,9 @@ async function getSupplierById(req, res, next) {
   #swagger.responses[200] = {
     description: 'Sent supplier (object) to client.',
   }
+  #swagger.responses[400] = {
+    $ref: "#/definitions/validationErrorResponse"
+  }
 */
   try {
     //validar q el id es de naturaleza numerica

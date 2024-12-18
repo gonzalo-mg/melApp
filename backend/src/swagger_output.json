@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8131/"
+      "url": "http://localhost:8014/"
     }
   ],
   "tags": [
@@ -24,6 +24,18 @@
       "description": "Clients management tasks; users only have access to the clients they have registered themselves."
     },
     {
+      "name": "Apiaries",
+      "description": "Apiaries management tasks; users only have access to their own apiaries."
+    },
+    {
+      "name": "Queens",
+      "description": "Queen bees management tasks; users only have access to their own queens."
+    },
+    {
+      "name": "beehives",
+      "description": "Beehives management tasks; users only have access to their own beehives."
+    },
+    {
       "name": "Harvests",
       "description": "Harvests management tasks; users only have access to their own harvests; harvests record the state of the beehive and apiary at the actual moment of harvesting, and do not reflect changes suffered afterwards."
     }
@@ -34,37 +46,26 @@
         "tags": [
           "Users"
         ],
-        "description": "Process login requests.",
+        "description": "Processes login requests.",
         "responses": {
           "200": {
-            "description": "User logged in succesfully; sent JWT token to client.",
+            "description": "Login succesfull; sent JWT token to client.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/loginUser200ResponseSchema"
+                  "$ref": "#/components/schemas/response20Schema"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/loginUser200ResponseSchema"
+                  "$ref": "#/components/schemas/response20Schema"
                 }
               }
             }
           },
           "400": {
-            "description": "Login failed: body does not match data schema.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorSchema"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorSchema"
-                }
-              }
-            }
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
           },
           "401": {
             "description": "Login failed: user and/or password are incorrect or unregistered.",
@@ -83,7 +84,7 @@
           }
         },
         "requestBody": {
-          "description": "Request body containing users email and password (encrypted).",
+          "description": "Must provide email and password (encrypted).",
           "content": {
             "application/json": {
               "schema": {
@@ -99,6 +100,383 @@
         }
       }
     },
+    "/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Register a new user.",
+        "responses": {
+          "201": {
+            "description": "New user succesfully registered; sent user credentials to client.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200Schema"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200Schema"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Registration failed: email address already registered."
+          }
+        },
+        "requestBody": {
+          "description": "Must provide email and password (encrypted).",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userCredentialsSchema"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/userCredentialsSchema"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/suppliers": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "description": "Get all suppliers of current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent suppliers (array of objects) to client."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/suppliers/{supplierId}": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "description": "Get supplier of current user.",
+        "parameters": [
+          {
+            "name": "supplierId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent supplier (object) to client."
+          },
+          "400": {
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/clients": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "description": "Get all clients of current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent clients (array of objects) to client."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/clients/{clientId}": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "description": "Get client of current user.",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent client (object) to client."
+          },
+          "400": {
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/apiaries": {
+      "get": {
+        "tags": [
+          "Apiaries"
+        ],
+        "description": "Get all apiaries of current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent apiaries (array of objects) to client."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/apiaries/{apiaryId}": {
+      "get": {
+        "tags": [
+          "Apiaries"
+        ],
+        "description": "Get specific apiary of current user.",
+        "parameters": [
+          {
+            "name": "apiaryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent apiary (object) to client."
+          },
+          "400": {
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/queens": {
+      "get": {
+        "tags": [
+          "Queens"
+        ],
+        "description": "Get all queens of current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent queens (array of objects) to client."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/queens/{queenId}": {
+      "get": {
+        "tags": [
+          "Queens"
+        ],
+        "description": "Get queen of current user.",
+        "parameters": [
+          {
+            "name": "queenId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent queen (object) to client."
+          },
+          "400": {
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/beehives": {
+      "get": {
+        "tags": [
+          "Beehives"
+        ],
+        "description": "Get all beehives of current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent beehives (array of objects) to client."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/beehives/{beehiveId}": {
+      "get": {
+        "tags": [
+          "Beehives"
+        ],
+        "description": "Get a particualar beehive of current user.",
+        "parameters": [
+          {
+            "name": "beehiveId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent beehive (object) to client."
+          },
+          "400": {
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/harvests": {
       "get": {
         "tags": [
@@ -112,14 +490,50 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "$ref": "#/components/parameters/userEmailHeader"
           }
         ],
         "responses": {
           "200": {
-            "description": "Sent harvests array to client."
+            "description": "Sent harvests (array of objects) to client."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/harvests/{harvestId}": {
+      "get": {
+        "tags": [
+          "Harvests"
+        ],
+        "description": "Get a particualar harvest of current user.",
+        "parameters": [
+          {
+            "name": "harvestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sent harvest (object) to client."
+          },
+          "400": {
+            "$ref": "#/components/schemas/validationErrorResponse",
+            "description": "Bad Request"
           }
         },
         "security": [
@@ -171,7 +585,7 @@
         ],
         "additionalProperties": false
       },
-      "loginUser200ResponseSchema": {
+      "response200Schema": {
         "type": "object",
         "properties": {
           "message": {
@@ -179,16 +593,10 @@
           },
           "payload": {
             "type": "object",
-            "properties": {
-              "userToken": {}
-            },
+            "properties": {},
             "additionalProperties": false
           }
         },
-        "required": [
-          "message",
-          "payload"
-        ],
         "additionalProperties": false
       },
       "errorSchema": {
@@ -207,6 +615,9 @@
           "statusCode"
         ],
         "additionalProperties": false
+      },
+      "validationErrorResponse": {
+        "description": "Validation error - Request data does not comply with expected data schema"
       }
     }
   }

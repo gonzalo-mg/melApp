@@ -18,6 +18,9 @@ async function getHarvestById(req, res, next) {
   #swagger.responses[200] = {
     description: 'Sent harvest (object) to client.',
   }
+  #swagger.responses[400] = {
+    $ref: "#/definitions/validationErrorResponse"
+  }
 */
   try {
     //validar q el id es de naturaleza numerica

@@ -9,22 +9,20 @@ const bcrypt = require("bcrypt");
 async function registerUser(req, res, next) {
   /**
   #swagger.tags = ['Users']
-  #swagger.description = 'Register a new user..'
+  #swagger.description = 'Register a new user.'
   #swagger.requestBody = {
-    description: 'Request body containing the dedired users email and password (encrypted).',
+    description: 'Must provide email and password (encrypted).',
     schema: { $ref: "#/definitions/userCredentialsSchema" }  
   }
   #swagger.responses[201] = {
-    description: 'User registered succesfully; sent user credentials to client.',
-    schema: { $ref: "#/definitions/loginUser200ResponseSchema" }
+    description: 'New user succesfully registered; sent user credentials to client.',
+    schema: { $ref: "#/definitions/response200Schema" }
   }
   #swagger.responses[400] = {
-    description: 'Registration failed: body does not match data schema.',
-    schema: { $ref: "#/definitions/errorSchema" }
+    $ref: "#/definitions/validationErrorResponse"
   } 
   #swagger.responses[409] = {
-    description: 'Registration failed: the email is already registered.',
-    schema: { $ref: "#/definitions/errorSchema" }
+    description: 'Registration failed: email address already registered.',
   } 
 */
   try {
@@ -35,7 +33,7 @@ async function registerUser(req, res, next) {
 
     // si ya esta registrado lanzar error
     if (await selectUserByEmail(email)) {
-      createHttpError("The email is already registered", 409);
+      createHttpError("Registration failed: email address already registered", 409);
     }
 
     // encriptar password para la bbdd

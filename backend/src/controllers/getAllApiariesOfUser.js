@@ -16,7 +16,10 @@ async function getAllApiariesOfUser(req, res, next) {
   try {
     const apiaries = await selectAllApiariesOfUserByEmail(req.userEmail);
 
-    res.status(200).send(apiaries);
+    res.status(200).send({
+      message: "Apiaries recovered as array of objects available in payload.",
+      payload: apiaries,
+    });
   } catch (error) {
     next(error);
   }

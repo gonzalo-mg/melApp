@@ -1,34 +1,34 @@
 const idNumSchema = require("../dataValidationSchemas/idNum");
-const selectClientById = require("../repositories/selectClientById");
+const selectQueenById = require("../repositories/selectQueenById");
 
-async function getClientById(req, res, next) {
+async function getQueenById(req, res, next) {
   /**
-  #swagger.tags = ['Clients']
-  #swagger.description = 'Get client of current user.'
+  #swagger.tags = ['Queens']
+  #swagger.description = 'Get queen of current user.'
 
   #swagger.security = [{
     "bearerAuth": []
   }]
     
-  #swagger.parameters['clientId] = {
+  #swagger.parameters['queenId] = {
     in: 'path',                                           
     required: 'true'
   }
 
   #swagger.responses[200] = {
-    description: 'Sent client (object) to client.',
+    description: 'Sent queen (object) to client.',
   }
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(parseInt(req.params.clientId, 10))
+    await idNumSchema.validateAsync(parseInt(req.params.queenId, 10));
 
-    const [client] = await selectClientById(req.params.clientId, req.userEmail);
-    
-    res.status(200).send(client);
+    const [queen] = await selectQueenById(req.params.queenId, req.userEmail);
+
+    res.status(200).send(queen);
   } catch (error) {
     next(error);
   }
 }
 
-module.exports = getClientById;
+module.exports = getQueenById;

@@ -15,7 +15,7 @@ async function registerUser(req, res, next) {
     schema: { $ref: "#/definitions/userCredentials" }  
   }
   #swagger.responses[201] = {
-    description: 'New user succesfully registered; sent user credentials to client.',
+    description: 'Registration succesful: user credentials available in payload.',
     schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
@@ -33,23 +33,23 @@ async function registerUser(req, res, next) {
 
     // si ya esta registrado lanzar error
     if (await selectUserByEmail(email)) {
-      createHttpError("Registration failed: email address already registered", 409);
+      createHttpError(
+        "Registration failed: email address already registered.",
+        409
+      );
     }
 
     // encriptar password para la bbdd
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     // insertar nuevo usuario en la bbdd
-    await insertUser(
-      email,
-      encryptedPassword,
-    );
+    await insertUser(email, encryptedPassword);
 
     // seleccionar el recien registrado para devolverlo
     const newUser = await selectUserByEmail(email);
 
     res.status(201).send({
-      message: "New user succesfully registered",
+      message: "Registration succesful: user credentials available in payload.",
       payload: newUser,
     });
   } catch (error) {

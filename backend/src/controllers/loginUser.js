@@ -15,7 +15,7 @@ async function loginUser(req, res, next) {
     schema: { $ref: "#/definitions/userCredentials" }  
   }
   #swagger.responses[200] = {
-    description: 'Login succesful; authorization token available in payload.',
+    description: 'Login succesful: authorization token available in payload.',
     schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
@@ -51,7 +51,7 @@ async function loginUser(req, res, next) {
     });
 
     res.status(200).send({
-      message: "Login succesful; authorization token available in payload.",
+      message: "Login succesful: authorization token available in payload.",
       payload: { userToken: `Bearer ${token}` },
     });
   } catch (error) {

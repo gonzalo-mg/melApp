@@ -10,6 +10,10 @@ async function postSupplier(req, res, next) {
     "bearerAuth": []
   }]
 
+  #swagger.requestBody = {
+    description: 'Must provide required fields.',
+    schema: { $ref: "#/definitions/supplier" } 
+
   #swagger.responses[201] = {
     description: 'Supplier created successfully.',
     schema: { $ref: "#/definitions/response200" }

@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8052/"
+      "url": "http://localhost:8057/"
     }
   ],
   "tags": [
@@ -229,6 +229,67 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/supplier": {
+      "post": {
+        "tags": [
+          "Suppliers"
+        ],
+        "description": "Create new supplier for current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Supplier created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Information needed to create new supplier. Only supplierName is required.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/supplier"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/supplier"
+              }
+            }
+          }
+        }
       }
     },
     "/clients": {
@@ -786,6 +847,59 @@
       "numericalId": {
         "type": "string",
         "pattern": "^\\d+$"
+      },
+      "supplier": {
+        "type": "object",
+        "properties": {
+          "supplierId": {
+            "type": "integer"
+          },
+          "supplierName": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 15
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100
+          },
+          "web": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "locality": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "street": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "addressNumber": {
+            "type": "integer"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "userEmail": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "supplierName"
+        ],
+        "additionalProperties": false
       }
     }
   },

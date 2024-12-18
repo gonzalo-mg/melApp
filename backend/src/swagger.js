@@ -7,6 +7,7 @@ const {
   userCredentialsSchemaSwagger,
 } = require("./dataValidationSchemas/userCredentialsSchema");
 const { numericalIdSwagger } = require("./dataValidationSchemas/idNum");
+const { supplierSchemaSwagger } = require("./dataValidationSchemas/supplierSchema");
 
 const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
 require("dotenv").config();
@@ -62,6 +63,7 @@ const doc = {
     response200: response200SchemaSwagger,
     errors: errorSchemaSwagger,
     numericalId: numericalIdSwagger,
+    supplier: supplierSchemaSwagger,
   },
   schemas: {
     validationErrorResponse: {

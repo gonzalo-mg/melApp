@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8049/"
+      "url": "http://localhost:8051/"
     }
   ],
   "tags": [
@@ -165,6 +165,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -216,6 +219,9 @@
           "400": {
             "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -255,6 +261,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -306,6 +315,9 @@
           "400": {
             "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -345,6 +357,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -396,6 +411,9 @@
           "400": {
             "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -435,6 +453,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -486,6 +507,9 @@
           "400": {
             "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -525,6 +549,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -576,6 +603,9 @@
           "400": {
             "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -615,6 +645,9 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [
@@ -666,6 +699,9 @@
           "400": {
             "$ref": "#/schemas/validationErrorResponse",
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
           }
         },
         "security": [

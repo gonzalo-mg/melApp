@@ -6,11 +6,8 @@ const authValidation = (req, res, next) => {
   #swagger.tags = ['Users']
   #swagger.description = 'Check if request has an authorization header with a valid token; if request is authorized, create userEmail request property to identify the user, and proceed to next controller.'
   
-  #swagger.responses[400] = {
-    description: 'Authorization header missing; can not proceed without it.'
-  }
   #swagger.responses[401] = {
-    description: 'Authorization denied: invalid token.'
+    description: 'Authorization denied: invalid or missing token.'
   } 
 */
   try {
@@ -19,8 +16,8 @@ const authValidation = (req, res, next) => {
 
     if (!authorization) {
       createHttpError(
-        "Authorization header missing; can not proceed without it",
-        400
+        "Authorization header missing",
+        401
       );
     }
 

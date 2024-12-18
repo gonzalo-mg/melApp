@@ -66,7 +66,7 @@ const doc = {
   schemas: {
     validationErrorResponse: {
       description:
-        "Validation error - Request data does not comply with expected data schema",
+        "Validation error: request data does not comply with expected data schema.",
     },
   },
   components: {

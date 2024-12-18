@@ -28,9 +28,8 @@ const getAllBeehivesOfUser = require("./controllers/getAllBeehivesOfUser");
 // harvests
 const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
 const getHarvestById = require("./controllers/getHarvestById");
-
+// errors
 const errorHandler = require("./middlewares/errorHandler");
-
 
 // middlewares utilitarios
 app.use(express.json());

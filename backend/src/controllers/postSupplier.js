@@ -11,9 +11,9 @@ async function postSupplier(req, res, next) {
   }]
 
   #swagger.requestBody = {
-    description: 'Must provide required fields.',
+    description: 'Information needed to create new supplier. Only supplierName is required.',
     schema: { $ref: "#/definitions/supplier" } 
-
+  }
   #swagger.responses[201] = {
     description: 'Supplier created successfully.',
     schema: { $ref: "#/definitions/response200" }

@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8054/"
+      "url": "http://localhost:8056/"
     }
   ],
   "tags": [
@@ -274,7 +274,22 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "requestBody": {
+          "description": "Must provide required fields.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/supplier"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/supplier"
+              }
+            }
+          }
+        }
       }
     },
     "/clients": {
@@ -832,6 +847,59 @@
       "numericalId": {
         "type": "string",
         "pattern": "^\\d+$"
+      },
+      "supplier": {
+        "type": "object",
+        "properties": {
+          "supplierId": {
+            "type": "integer"
+          },
+          "supplierName": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 15
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100
+          },
+          "web": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "locality": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "street": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "addressNumber": {
+            "type": "integer"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "userEmail": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "supplierName"
+        ],
+        "additionalProperties": false
       }
     }
   },

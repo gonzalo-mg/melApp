@@ -50,7 +50,7 @@ app.post("/register", registerUser);
 // suppliers
 app.get("/suppliers", authValidation, getAllSuppliersOfUser);
 app.get("/suppliers/:supplierId", authValidation, getSupplierById);
-app.post("supplier", authValidation, postSupplier);
+app.post("/supplier", authValidation, postSupplier);
 // clients
 app.get("/clients", authValidation, getAllClientsOfUser);
 app.get("/clients/:clientId", authValidation, getClientById);

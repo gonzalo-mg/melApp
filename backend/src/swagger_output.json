@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8053/"
+      "url": "http://localhost:8054/"
     }
   ],
   "tags": [
@@ -203,6 +203,52 @@
         "responses": {
           "200": {
             "description": "Supplier recovered as object available in payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/response200"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/schemas/validationErrorResponse",
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Authorization denied: invalid or missing token."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/supplier": {
+      "post": {
+        "tags": [
+          "Suppliers"
+        ],
+        "description": "Create new supplier for current user.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Supplier created successfully.",
             "content": {
               "application/json": {
                 "schema": {

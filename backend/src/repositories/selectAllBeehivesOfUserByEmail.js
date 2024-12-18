@@ -6,7 +6,8 @@ async function selectAllBeehivesOfUserByEmail(email) {
   const sqlCode =
     "select beehives.* from beehives join apiaries on beehives.apiaryId = apiaries.apiaryId join users on apiaries.userEmail = users.userEmail where users.userEmail = ?;";
 
-  return await pool.query(sqlCode, [email]);
+  const [beehives] = await pool.query(sqlCode, [email]);
+  return beehives;
 }
 
 module.exports = selectAllBeehivesOfUserByEmail;

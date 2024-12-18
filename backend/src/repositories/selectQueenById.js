@@ -1,9 +1,13 @@
 const getPool = require("../dataBase/getPool");
 
-async function selectQueenById(id) {
+async function selectQueenById(queenId, userEmail) {
   const pool = getPool();
 
-  return await pool.query("select * from queens where queenId = ?", [id]);
+  const [queen] = await pool.query(
+    "select * from queens where queenId = ? and userEmail = ?",
+    [queenId, userEmail]
+  );
+  return queen;
 }
 
 module.exports = selectQueenById;

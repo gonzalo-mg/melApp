@@ -1,8 +1,8 @@
 const { required } = require("joi");
 const { errorSchemaSwagger } = require("./dataValidationSchemas/errorSchema");
 const {
-  loginUser200ResponseSchemaSwagger,
-} = require("./dataValidationSchemas/loginUser200ResponseSchema");
+  response200SchemaSwagger,
+} = require("./dataValidationSchemas/response200Schema");
 const {
   userCredentialsSchemaSwagger,
 } = require("./dataValidationSchemas/userCredentialsSchema");
@@ -58,7 +58,7 @@ const doc = {
   ],
   "@definitions": {
     userCredentialsSchema: userCredentialsSchemaSwagger,
-    loginUser200ResponseSchema: loginUser200ResponseSchemaSwagger,
+    response200Schema: response200SchemaSwagger,
     errorSchema: errorSchemaSwagger,
   },
   components: {

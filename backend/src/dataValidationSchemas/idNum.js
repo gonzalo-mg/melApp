@@ -1,5 +1,8 @@
 const Joi = require("joi");
+const j2s = require("joi-to-swagger");
 
-const idNumSchema =  Joi.number().integer().positive().required();
+const numericalId = Joi.string().pattern(/^\d+$/).required();
 
-module.exports = idNumSchema;
+const { swagger: numericalIdSwagger } = j2s(numericalId);
+
+module.exports = { numericalId, numericalIdSwagger };

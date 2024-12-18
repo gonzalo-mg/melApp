@@ -10,22 +10,27 @@ async function getHarvestById(req, res, next) {
     "bearerAuth": []
   }]
     
-  #swagger.parameters['harvestId] = {
-    in: 'path',                                           
-    required: 'true'
-  }
-
   #swagger.responses[200] = {
-    description: 'Sent harvest (object) to client.',
+    description: 'Harvest recovered as object available in payload.',
+    schema: { $ref: "#/definitions/response200" }
+  }
+  #swagger.responses[400] = {
+    $ref: "#/schemas/validationErrorResponse"
   }
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(parseInt(req.params.harvestId, 10))
+    await idNumSchema.validateAsync(req.params.apiaryId);
 
-    const [harvest] = await selectHarvestById(req.params.harvestId, req.userEmail);
-    
-    res.status(200).send(harvest);
+    const [harvest] = await selectHarvestById(
+      req.params.harvestId,
+      req.userEmail
+    );
+
+    res.status(200).send({
+      message: "Harvest recovered as object available in payload.",
+      payload: harvest,
+    });
   } catch (error) {
     next(error);
   }

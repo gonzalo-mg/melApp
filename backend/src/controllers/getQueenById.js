@@ -9,23 +9,25 @@ async function getQueenById(req, res, next) {
   #swagger.security = [{
     "bearerAuth": []
   }]
-    
-  #swagger.parameters['queenId] = {
-    in: 'path',                                           
-    required: 'true'
-  }
 
   #swagger.responses[200] = {
-    description: 'Sent queen (object) to client.',
+    description: 'Queen recovered as object available in payload.',
+    schema: { $ref: "#/definitions/response200" }
+  }
+  #swagger.responses[400] = {
+    $ref: "#/schemas/validationErrorResponse"
   }
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(parseInt(req.params.queenId, 10));
+    await idNumSchema.validateAsync(req.params.apiaryId);
 
     const [queen] = await selectQueenById(req.params.queenId, req.userEmail);
 
-    res.status(200).send(queen);
+    res.status(200).send({
+      message: "Queen recovered as object available in payload.",
+      payload: queen,
+    });
   } catch (error) {
     next(error);
   }

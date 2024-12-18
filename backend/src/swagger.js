@@ -1,11 +1,12 @@
 const { required } = require("joi");
 const { errorSchemaSwagger } = require("./dataValidationSchemas/errorSchema");
 const {
-  loginUser200ResponseSchemaSwagger,
-} = require("./dataValidationSchemas/loginUser200ResponseSchema");
+  response200SchemaSwagger,
+} = require("./dataValidationSchemas/response200Schema");
 const {
   userCredentialsSchemaSwagger,
 } = require("./dataValidationSchemas/userCredentialsSchema");
+const { numericalIdSwagger } = require("./dataValidationSchemas/idNum");
 
 const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
 require("dotenv").config();
@@ -36,32 +37,53 @@ const doc = {
         "Clients management tasks; users only have access to the clients they have registered themselves.",
     },
     {
+      name: "Apiaries",
+      description:
+        "Apiaries management tasks; users only have access to their own apiaries.",
+    },
+    {
+      name: "Queens",
+      description:
+        "Queen bees management tasks; users only have access to their own queens.",
+    },
+    {
+      name: "Beehives",
+      description:
+        "Beehives management tasks; users only have access to their own beehives.",
+    },
+    {
       name: "Harvests",
       description:
         "Harvests management tasks; users only have access to their own harvests; harvests record the state of the beehive and apiary at the actual moment of harvesting, and do not reflect changes suffered afterwards.",
     },
   ],
   "@definitions": {
-    userCredentialsSchema: userCredentialsSchemaSwagger,
-    loginUser200ResponseSchema: loginUser200ResponseSchemaSwagger,
-    errorSchema: errorSchemaSwagger,
+    userCredentials: userCredentialsSchemaSwagger,
+    response200: response200SchemaSwagger,
+    errors: errorSchemaSwagger,
+    numericalId: numericalIdSwagger,
+  },
+  schemas: {
+    validationErrorResponse: {
+      description:
+        "Validation error - Request data does not comply with expected data schema",
+    },
   },
   components: {
+    parameters: {
+      numericalIdParameter: {
+        description: 'Identification number',
+        in: 'path',                                           
+        required: 'true',
+        schema: { $ref: "#/definitions/numericalId" },
+      }
+    },
     securitySchemes: {
       bearerAuth: {
         type: "http",
         description: "JWT token",
         scheme: "bearer",
         bearerFormat: "JWT",
-        required: "true",
-      },
-    },
-    parameters: {
-      userEmailHeader: {
-        in: "header",
-        name: "userEmail",
-        description: "Current user email",
-        schema: { type: "string" },
         required: "true",
       },
     },

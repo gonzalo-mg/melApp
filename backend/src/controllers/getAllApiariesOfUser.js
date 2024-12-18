@@ -10,13 +10,17 @@ async function getAllApiariesOfUser(req, res, next) {
   }]
     
   #swagger.responses[200] = {
-    description: 'Sent apiaries (array of objects) to client.',
+    description: 'Apiaries recovered as array of objects available in payload.',
+    schema: { $ref: "#/definitions/response200" }
   }
 */
   try {
     const apiaries = await selectAllApiariesOfUserByEmail(req.userEmail);
 
-    res.status(200).send(apiaries);
+    res.status(200).send({
+      message: "Apiaries recovered as array of objects available in payload.",
+      payload: apiaries,
+    });
   } catch (error) {
     next(error);
   }

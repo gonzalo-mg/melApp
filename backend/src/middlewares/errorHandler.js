@@ -10,7 +10,7 @@ function errorHandler(error, req, res, next) {
   // errores de validacion con joi
   if (error.name === "ValidationError") {
     return res.status(400).send({
-      message: `${error.name}: ${error.message} - but got: ${error._original}`,
+      message: `Validation error - Request data does not comply with expected data schema: ${error.message} - but got: ${error._original}.`,
     });
   }
 

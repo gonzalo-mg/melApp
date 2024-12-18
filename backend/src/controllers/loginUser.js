@@ -10,22 +10,20 @@ async function loginUser(req, res, next) {
 /**
   #swagger.auto = false
   #swagger.tags = ['Users']
-  #swagger.description = 'Process login requests.'
+  #swagger.description = 'Processes login requests.'
   #swagger.requestBody = {
-    description: 'Request body containing users email and password (encrypted).',
-    schema: { $ref: "#/definitions/userCredentialsSchema" }  
+    description: 'Must provide email and password (encrypted).',
+    schema: { $ref: "#/definitions/userCredentials" }  
   }
   #swagger.responses[200] = {
-    description: 'User logged in succesfully; sent JWT token to client.',
-    schema: { $ref: "#/definitions/loginUser200ResponseSchema" }
+    description: 'Login succesfull; sent JWT token to client.',
+    schema: { $ref: "#/definitions/response200" }
   }
   #swagger.responses[400] = {
-    description: 'Login failed: body does not match data schema.',
-    schema: { $ref: "#/definitions/errorSchema" }
-  } 
+    $ref: "#/schemas/validationErrorResponse"
+  }
   #swagger.responses[401] = {
-    description: 'Login failed: user and/or password are incorrect or unregistered.',
-    schema: { $ref: "#/definitions/errorSchema" }
+    description: 'Login failed: user and/or password are incorrect or unregistered.'
   } 
 */
   try {
@@ -54,7 +52,7 @@ async function loginUser(req, res, next) {
     });
 
     res.status(200).send({
-      message: "Login completed",
+      message: "Login succesfull; sent JWT token to client",
       payload: { userToken: `Bearer ${token}` },
     });
   } catch (error) {

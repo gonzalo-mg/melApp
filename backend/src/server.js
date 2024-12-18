@@ -14,6 +14,7 @@ const swaggerFile = require("./swagger_output.json");
 // users
 const authValidation = require("./middlewares/authValidation");
 const loginUser = require("./controllers/loginUser");
+const registerUser = require("./controllers/registerUser");
 // suppliers
 const getAllSuppliersOfUser = require("./controllers/getAllSuppliersOfUser");
 const getSupplierById = require("./controllers/getSupplierById");
@@ -35,6 +36,7 @@ const getHarvestById = require("./controllers/getHarvestById");
 // errors
 const errorHandler = require("./middlewares/errorHandler");
 
+
 // middlewares utilitarios
 app.use(express.json());
 app.use(cors());
@@ -44,6 +46,7 @@ app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // users
 app.post("/login", loginUser);
+app.post("/register", registerUser);
 // suppliers
 app.get("/suppliers", authValidation, getAllSuppliersOfUser);
 app.get("/suppliers/:supplierId", authValidation, getSupplierById);

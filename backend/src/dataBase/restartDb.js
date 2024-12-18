@@ -183,12 +183,12 @@ async function restartDb() {
 
     await pool.query(`
         INSERT INTO queens
-            (queenName, yearOfBirth, yearOfDeath, origin, supplierId) 
+            (queenName, yearOfBirth, yearOfDeath, origin, userEmail, mother, supplierId) 
         VALUES
-            ('reina1', 2020, NULL, 'bought', 1),
-            ('reina2', 2021, NULL, 'bought', 1),
-            ('reinaHijaDeReina1', 2022, NULL, 'bred', 1),
-            ('reinaNómada', 2021, NULL, 'bought', 1);    
+            ('reina1', 2020, NULL, 'bought', 'abejamaya@email.com', NULL,1),
+            ('reina2', 2021, NULL, 'bought', 'abejamaya@email.com', NULL, 1),
+            ('reinaHijaDeReina1', 2022, NULL, 'bred', 'abejamaya@email.com', 1, 1),
+            ('reinaNómada', 2021, NULL, 'bought', 'abejamaya@email.com', NULL,1);    
     `);
 
     await pool.query(`

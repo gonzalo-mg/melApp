@@ -25,6 +25,7 @@ const getAllApiariesOfUser = require("./controllers/getAllApiariesOfUser");
 const getApiaryById = require("./controllers/getApiaryById");
 // beehives
 const getAllBeehivesOfUser = require("./controllers/getAllBeehivesOfUser");
+const getBeehiveById = require("./controllers/getBeehiveById");
 // harvests
 const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
 const getHarvestById = require("./controllers/getHarvestById");
@@ -51,6 +52,7 @@ app.get("/apiaries", authValidation, getAllApiariesOfUser);
 app.get("/apiaries/:apiaryId", authValidation, getApiaryById);
 // beehives
 app.get("/beehives", authValidation, getAllBeehivesOfUser);
+app.get("/beehives/:beehiveId", authValidation, getBeehiveById);
 // harvests
 app.get("/harvests", authValidation, getAllHarvestsOfUser);
 app.get("/harvests/:harvestId", authValidation, getHarvestById);

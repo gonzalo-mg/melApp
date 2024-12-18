@@ -2,6 +2,7 @@ const {
   userCredentialsSchema,
 } = require("../dataValidationSchemas/userCredentialsSchema");
 const selectUserByEmail = require("../repositories/selectUserByEmail");
+const insertUser = require("../repositories/insertUser");
 const createHttpError = require("../utilities/createHttpError");
 const bcrypt = require("bcrypt");
 
@@ -41,10 +42,10 @@ async function registerUser(req, res, next) {
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     // insertar nuevo usuario en la bbdd
-    await insertUser({
+    await insertUser(
       email,
       encryptedPassword,
-    });
+    );
 
     // seleccionar el recien registrado para devolverlo
     const newUser = await selectUserByEmail(email);

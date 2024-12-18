@@ -1,5 +1,6 @@
 const { supplierSchema } = require("../dataValidationSchemas/supplierSchema");
 const insertSupplier = require("../repositories/insertSupplier");
+const selectSupplierByName = require("../repositories/selectSupplierByName");
 
 async function postSupplier(req, res, next) {
   /**
@@ -21,11 +22,32 @@ async function postSupplier(req, res, next) {
   #swagger.responses[400] = {
     $ref: "#/schemas/validationErrorResponse"
   }
+  #swagger.responses[409] = {
+    description: 'Not created: a supplier with that name already exists for this user.'
+  }
 */
   try {
     await supplierSchema.validateAsync(req.body);
 
-    const [newSupplier] = await insertSupplier(req.body);
+    const [exists] = await selectSupplierByName(
+      req.body.supplierName,
+      req.userEmail
+    );
+
+    if (exists) {
+      res.status(409).send({
+        message:
+          "Not created: a supplier with that name already exists for this user.",
+        payload: exists,
+      });
+    }
+
+    await insertSupplier(req.body);
+
+    const [newSupplier] = await selectSupplierByName(
+      req.body.supplierName,
+      req.userEmail
+    );
 
     res.status(201).send({
       message: "Supplier created successfully.",

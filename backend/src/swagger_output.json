@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8056/"
+      "url": "http://localhost:8057/"
     }
   ],
   "tags": [
@@ -276,7 +276,7 @@
           }
         ],
         "requestBody": {
-          "description": "Must provide required fields.",
+          "description": "Information needed to create new supplier. Only supplierName is required.",
           "content": {
             "application/json": {
               "schema": {

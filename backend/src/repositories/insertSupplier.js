@@ -6,7 +6,7 @@ async function insertSupplier(
 ) {
   const pool = getPool();
 
-  await pool.query(
+  return await pool.query(
     `INSERT INTO suppliers
       (supplierName, phone, email, web, locality, street, addressNumber, userEmail)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,

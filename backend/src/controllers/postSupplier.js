@@ -1,5 +1,6 @@
 const { supplierSchema } = require("../dataValidationSchemas/supplierSchema");
 const insertSupplier = require("../repositories/insertSupplier");
+const selectSupplierById = require("../repositories/selectSupplierById");
 const selectSupplierByName = require("../repositories/selectSupplierByName");
 
 async function postSupplier(req, res, next) {
@@ -29,12 +30,12 @@ async function postSupplier(req, res, next) {
   try {
     await supplierSchema.validateAsync(req.body);
 
-    const [exists] = await selectSupplierByName(
+    const [existsName] = await selectSupplierByName(
       req.body.supplierName,
       req.userEmail
     );
 
-    if (exists) {
+    if (existsName) {
       res.status(409).send({
         message:
           "Not created: a supplier with that name already exists for this user.",
@@ -42,12 +43,9 @@ async function postSupplier(req, res, next) {
       });
     }
 
-    await insertSupplier(req.body, req.userEmail);
-
-    const [newSupplier] = await selectSupplierByName(
-      req.body.supplierName,
-      req.userEmail
-    );
+    // recuperar id del nueveo elemento insertado aprovechando la info devuelta por el pool.query
+    const [{ insertId }] = await insertSupplier(req.body, req.userEmail);
+    const [ newSupplier ] = await selectSupplierById(insertId, req.userEmail);
 
     res.status(201).send({
       message: "Supplier created successfully.",

@@ -11,7 +11,8 @@ const supplierSchema = Joi.object({
   street: Joi.string().max(100),
   addressNumber: Joi.number().integer(),
   notes: Joi.string().max(500),
-  userEmail: Joi.string().email().max(100),
+  // userEmail is injected by controllers, obtained from jwt token; so client request should not manually set the user
+  //userEmail: Joi.string().email().max(100),
   created: Joi.date()
 });
 

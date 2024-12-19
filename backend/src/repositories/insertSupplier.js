@@ -1,15 +1,9 @@
 const getPool = require("../dataBase/getPool");
 
-async function insertSupplier({
-  supplierName,
-  phone,
-  email,
-  web,
-  locality,
-  street,
-  addressNumber,
-  userEmail,
-}) {
+async function insertSupplier(
+  { supplierName, phone, email, web, locality, street, addressNumber },
+  userEmail
+) {
   const pool = getPool();
 
   await pool.query(

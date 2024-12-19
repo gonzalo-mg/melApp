@@ -2,7 +2,7 @@ const getPool = require("../dataBase/getPool");
 
 async function updateClient(
   {
-    supplierName: clientName,
+    clientName,
     phone,
     email,
     requiredServices,

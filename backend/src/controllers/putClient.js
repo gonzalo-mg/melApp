@@ -46,7 +46,7 @@ async function putClient(req, res, next) {
       req.body.clientName,
       req.userEmail
     );
-    if (existsNewName.clientId != req.body.clientId) {
+    if (existsNewName && existsNewName.clientId !== req.body.clientId) {
       return res.status(409).send({
         message:
           "Not edited: a client with that name already exists for this user.",

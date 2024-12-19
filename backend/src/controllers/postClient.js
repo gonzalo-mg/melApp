@@ -3,7 +3,7 @@ const insertClient = require("../repositories/insertClient");
 const selectClientById = require("../repositories/selectClientById");
 const selectClientByName = require("../repositories/selectClientByName");
 
-async function postSupplier(req, res, next) {
+async function postClient(req, res, next) {
   /**
   #swagger.tags = ['Clients']
   #swagger.description = 'Create new client for current user.'
@@ -36,7 +36,7 @@ async function postSupplier(req, res, next) {
     );
 
     if (existsName) {
-      res.status(409).send({
+      return res.status(409).send({
         message:
           "Not created: a client with that name already exists for this user.",
         payload: existsName,
@@ -47,7 +47,7 @@ async function postSupplier(req, res, next) {
     const [{ insertId }] = await insertClient(req.body, req.userEmail);
     const [ newClient ] = await selectClientById(insertId, req.userEmail);
 
-    res.status(201).send({
+    return res.status(201).send({
       message: "Client created successfully.",
       payload: newClient,
     });

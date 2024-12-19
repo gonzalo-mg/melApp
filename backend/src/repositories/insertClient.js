@@ -7,7 +7,7 @@ async function insertClient(
   const pool = getPool();
 
   return await pool.query(
-    `INSERT INTO suppliers
+    `INSERT INTO clients
       (clientName, requiredServices, phone, email, locality, street, addressNumber, notes, userEmail)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [

@@ -36,6 +36,7 @@ const getAllHarvestsOfUser = require("./controllers/getAllHarvestsOfUser");
 const getHarvestById = require("./controllers/getHarvestById");
 // errors
 const errorHandler = require("./middlewares/errorHandler");
+const putSupplier = require("./controllers/putSupplier");
 
 // middlewares utilitarios
 app.use(express.json());
@@ -51,6 +52,7 @@ app.post("/register", registerUser);
 app.get("/suppliers", authValidation, getAllSuppliersOfUser);
 app.get("/suppliers/:supplierId", authValidation, getSupplierById);
 app.post("/supplier", authValidation, postSupplier);
+app.put("/supplier", authValidation, putSupplier);
 // clients
 app.get("/clients", authValidation, getAllClientsOfUser);
 app.get("/clients/:clientId", authValidation, getClientById);

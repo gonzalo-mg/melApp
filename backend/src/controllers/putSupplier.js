@@ -26,19 +26,31 @@ async function putSupplier(req, res, next) {
   #swagger.responses[404] = {
     description: 'Not edited: no supplier with that id exists for this user.'
   }
+  #swagger.responses[409] = {
+    description: 'Not edited: a supplier with that name already exists for this user.'
+  }
 */
   try {
     await supplierSchema.validateAsync(req.body);
 
-    const [exists] = await selectSupplierById(
+    const [existsId] = await selectSupplierById(
       req.body.supplierId,
       req.userEmail
     );
 
-    if (!exists) {
+    if (!existsId) {
       return res.status(404).send({
         message: "Not edited: no supplier with that id exists for this user.",
         payload: null,
+      });
+    }
+
+    const [ existsNewName ] = await selectSupplierByName(req.body.supplierName, req.userEmail)
+    if(existsNewName.supplierId != req.body.supplierId){ 
+      res.status(409).send({
+        message:
+          "Not edited: a supplier with that name already exists for this user.",
+        payload: existsNewName,
       });
     }
 

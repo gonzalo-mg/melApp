@@ -24,6 +24,7 @@ const putSupplier = require("./controllers/putSupplier");
 const getAllClientsOfUser = require("./controllers/getAllClientsOfUser");
 const getClientById = require("./controllers/getClientById");
 const postClient = require("./controllers/postClient");
+const putClient = require("./controllers/putClient");
 // apiaries
 const getAllApiariesOfUser = require("./controllers/getAllApiariesOfUser");
 const getApiaryById = require("./controllers/getApiaryById");
@@ -59,6 +60,7 @@ app.put("/supplier", authValidation, putSupplier);
 app.get("/clients", authValidation, getAllClientsOfUser);
 app.get("/clients/:clientId", authValidation, getClientById);
 app.post("/client", authValidation, postClient);
+app.put("/client", authValidation, putClient);
 // apiaries
 app.get("/apiaries", authValidation, getAllApiariesOfUser);
 app.get("/apiaries/:apiaryId", authValidation, getApiaryById);

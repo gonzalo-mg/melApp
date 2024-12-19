@@ -18,7 +18,7 @@ async function insertSupplier(
   await pool.query(
     `update suppliers
     set
-      supplierName = ?, phone = ?, email = ?, web = ?, locality = ?, street = ?, addressNumber = ?, 
+      supplierName = ?, phone = ?, email = ?, web = ?, locality = ?, street = ?, addressNumber = ?
     where
       supplierId = ?
     and

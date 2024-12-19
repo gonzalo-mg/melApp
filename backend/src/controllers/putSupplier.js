@@ -1,6 +1,7 @@
 const { supplierSchema } = require("../dataValidationSchemas/supplierSchema");
 const updateSupplier = require("../repositories/updateSupplier");
 const selectSupplierByName = require("../repositories/selectSupplierByName");
+const selectSupplierById = require("../repositories/selectSupplierById");
 
 async function putSupplier(req, res, next) {
   /**

@@ -1,6 +1,6 @@
 const getPool = require("../dataBase/getPool");
 
-async function insertSupplier(
+async function updateSupplier(
   {
     supplierName,
     phone,
@@ -37,4 +37,4 @@ async function insertSupplier(
   );
 }
 
-module.exports = insertSupplier;
+module.exports = updateSupplier;

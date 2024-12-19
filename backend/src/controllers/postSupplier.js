@@ -42,7 +42,7 @@ async function postSupplier(req, res, next) {
       });
     }
 
-    await insertSupplier(req.body);
+    await insertSupplier(req.body, req.userEmail);
 
     const [newSupplier] = await selectSupplierByName(
       req.body.supplierName,

@@ -45,7 +45,7 @@ async function postClient(req, res, next) {
 
     // recuperar id del nuevo elemento insertado aprovechando la info devuelta por el pool.query, q la ofrece en su propiedad insertId
     const [{ insertId }] = await insertClient(req.body, req.userEmail);
-    const [ newClient ] = await selectClientById(insertId, req.userEmail);
+    const [newClient] = await selectClientById(insertId, req.userEmail);
 
     return res.status(201).send({
       message: "Client created successfully.",

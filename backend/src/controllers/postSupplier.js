@@ -36,7 +36,7 @@ async function postSupplier(req, res, next) {
     );
 
     if (existsName) {
-      res.status(409).send({
+      return res.status(409).send({
         message:
           "Not created: a supplier with that name already exists for this user.",
         payload: existsName,
@@ -45,9 +45,9 @@ async function postSupplier(req, res, next) {
 
     // recuperar id del nuevo elemento insertado aprovechando la info devuelta por el pool.query, q la ofrece en su propiedad insertId
     const [{ insertId }] = await insertSupplier(req.body, req.userEmail);
-    const [ newSupplier ] = await selectSupplierById(insertId, req.userEmail);
+    const [newSupplier] = await selectSupplierById(insertId, req.userEmail);
 
-    res.status(201).send({
+    return res.status(201).send({
       message: "Supplier created successfully.",
       payload: newSupplier,
     });

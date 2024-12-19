@@ -24,7 +24,7 @@ async function getClientById(req, res, next) {
 
     const [client] = await selectClientById(req.params.clientId, req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Client recovered as object available in payload.",
       paylaod: client,
     });

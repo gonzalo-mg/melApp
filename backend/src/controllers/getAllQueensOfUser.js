@@ -17,7 +17,7 @@ async function getAllQueensOfUser(req, res, next) {
   try {
     const queens = await selectAllQueensOfUserByEmail(req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Queens recovered as array of objects available in payload.",
       payload: queens,
     });

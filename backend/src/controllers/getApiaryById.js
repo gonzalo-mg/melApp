@@ -24,7 +24,7 @@ async function getApiaryById(req, res, next) {
 
     const [apiary] = await selectApiaryById(req.params.apiaryId, req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Apiary recovered as object available in payload.",
       payload: apiary,
     });

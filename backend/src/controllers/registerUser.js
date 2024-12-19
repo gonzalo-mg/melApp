@@ -48,7 +48,7 @@ async function registerUser(req, res, next) {
     // seleccionar el recien registrado para devolverlo
     const newUser = await selectUserByEmail(email);
 
-    res.status(201).send({
+    return res.status(201).send({
       message: "Registration succesful: user credentials available in payload.",
       payload: newUser,
     });

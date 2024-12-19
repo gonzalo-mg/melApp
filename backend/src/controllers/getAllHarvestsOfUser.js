@@ -17,7 +17,7 @@ async function getAllHarvestsOfUser(req, res, next) {
   try {
     const harvests = await selectAllHarvestsOfUserByEmail(req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Harvests recovered as array of objects available in payload.",
       payload: harvests,
     });

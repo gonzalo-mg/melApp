@@ -24,7 +24,7 @@ async function getQueenById(req, res, next) {
 
     const [queen] = await selectQueenById(req.params.queenId, req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Queen recovered as object available in payload.",
       payload: queen,
     });

@@ -18,7 +18,7 @@ async function getAllBeehivesOfUser(req, res, next) {
   try {
     const beehives = await selectAllBeehivesOfUserByEmail(req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Beehives recovered as array of objects available in payload.",
       payload: beehives,
     });

@@ -27,7 +27,7 @@ async function getHarvestById(req, res, next) {
       req.userEmail
     );
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Harvest recovered as object available in payload.",
       payload: harvest,
     });

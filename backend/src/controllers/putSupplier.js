@@ -45,9 +45,12 @@ async function putSupplier(req, res, next) {
       });
     }
 
-    const [ existsNewName ] = await selectSupplierByName(req.body.supplierName, req.userEmail)
-    if(existsNewName.supplierId != req.body.supplierId){ 
-      res.status(409).send({
+    const [existsNewName] = await selectSupplierByName(
+      req.body.supplierName,
+      req.userEmail
+    );
+    if (existsNewName.supplierId != req.body.supplierId) {
+      return res.status(409).send({
         message:
           "Not edited: a supplier with that name already exists for this user.",
         payload: existsNewName,

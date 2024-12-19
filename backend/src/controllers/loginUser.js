@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 async function loginUser(req, res, next) {
-/**
+  /**
   #swagger.tags = ['Users']
   #swagger.description = 'Processes login requests.'
   #swagger.requestBody = {
@@ -50,7 +50,7 @@ async function loginUser(req, res, next) {
       expiresIn: "1d",
     });
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Login succesful: authorization token available in payload.",
       payload: { userToken: `Bearer ${token}` },
     });

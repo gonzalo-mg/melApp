@@ -18,7 +18,7 @@ async function getAllClientsOfUser(req, res, next) {
   try {
     const clients = await selectAllClientsOfUserByEmail(req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Clients recovered as array of objects available in payload.",
       payload: clients,
     });

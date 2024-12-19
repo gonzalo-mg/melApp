@@ -17,7 +17,7 @@ async function getAllSuppliersOfUser(req, res, next) {
   try {
     const suppliers = await selectAllSuppliersOfUserByEmail(req.userEmail);
 
-    res.status(200).send({
+    return res.status(200).send({
       message: "Suppliers recovered as array of objects available in payload.",
       payload: suppliers,
     });

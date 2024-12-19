@@ -33,10 +33,7 @@ async function putClient(req, res, next) {
   try {
     await clientSchema.validateAsync(req.body);
 
-    const [existsId] = await selectClientById(
-      req.body.clientId,
-      req.userEmail
-    );
+    const [existsId] = await selectClientById(req.body.clientId, req.userEmail);
 
     if (!existsId) {
       return res.status(404).send({
@@ -45,9 +42,12 @@ async function putClient(req, res, next) {
       });
     }
 
-    const [ existsNewName ] = await selectClientByName(req.body.clientName, req.userEmail)
-    if(existsNewName.clientId != req.body.clientId){ 
-      res.status(409).send({
+    const [existsNewName] = await selectClientByName(
+      req.body.clientName,
+      req.userEmail
+    );
+    if (existsNewName.clientId != req.body.clientId) {
+      return res.status(409).send({
         message:
           "Not edited: a client with that name already exists for this user.",
         payload: existsNewName,

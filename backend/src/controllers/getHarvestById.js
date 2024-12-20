@@ -1,4 +1,4 @@
-const numericalId = require("../dataValidationSchemas/numericalIdSchema");
+const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectHarvestById = require("../repositories/selectHarvestById");
 
 async function getHarvestById(req, res, next) {

@@ -1,4 +1,4 @@
-const numericalSchema = require("../dataValidationSchemas/numericalIdSchema");
+const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectQueenById = require("../repositories/selectQueenById");
 
 async function getQueenById(req, res, next) {
@@ -20,7 +20,7 @@ async function getQueenById(req, res, next) {
 */
   try {
     //validar q el id es de naturaleza numerica
-    await numericalSchema.validateAsync(req.params.apiaryId);
+    await numericalId.validateAsync(req.params.apiaryId);
 
     const [queen] = await selectQueenById(req.params.queenId, req.userEmail);
 

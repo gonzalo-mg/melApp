@@ -1,4 +1,4 @@
-const numericalId = require("../dataValidationSchemas/numericalIdSchema");
+const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectBeehiveById = require("../repositories/selectBeehiveById");
 
 async function getBeehiveById(req, res, next) {

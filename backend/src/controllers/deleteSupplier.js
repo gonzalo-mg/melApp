@@ -3,8 +3,8 @@ const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 
 async function deleteSupplier(req, res, next) {
   /**
-     #swagger.tags = ['Suppliers']
-     #swagger.description = 'Delete a supplier of current user.'
+    #swagger.tags = ['Suppliers']
+    #swagger.description = 'Delete a supplier of current user.'
 
     #swagger.security = [{
         "bearerAuth": []

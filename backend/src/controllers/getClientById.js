@@ -20,7 +20,7 @@ async function getClientById(req, res, next) {
 */
   try {
     //validar q el id es de naturaleza numerica
-    await numericalId.validateAsync(req.params.apiaryId);
+    await numericalId.validateAsync(req.params.clientId);
 
     const [client] = await selectClientById(req.params.clientId, req.userEmail);
 

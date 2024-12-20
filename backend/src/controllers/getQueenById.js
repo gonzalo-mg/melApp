@@ -20,7 +20,7 @@ async function getQueenById(req, res, next) {
 */
   try {
     //validar q el id es de naturaleza numerica
-    await numericalId.validateAsync(req.params.apiaryId);
+    await numericalId.validateAsync(req.params.queenId);
 
     const [queen] = await selectQueenById(req.params.queenId, req.userEmail);
 

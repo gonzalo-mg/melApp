@@ -1,4 +1,4 @@
-const idNumSchema = require("../dataValidationSchemas/idNum");
+const numericalId = require("../dataValidationSchemas/numericalIdSchema");
 const selectBeehiveById = require("../repositories/selectBeehiveById");
 
 async function getBeehiveById(req, res, next) {
@@ -20,7 +20,7 @@ async function getBeehiveById(req, res, next) {
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(req.params.apiaryId);
+    await numericalId.validateAsync(req.params.beehiveId);
 
     const [beehive] = await selectBeehiveById(
       req.params.beehiveId,

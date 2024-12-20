@@ -64,7 +64,7 @@ async function restartDb() {
             latitude DECIMAL(10, 8) NOT NULL,
             longitude DECIMAL(10, 8) NOT NULL,
             nomad BOOLEAN NOT NULL DEFAULT FALSE,
-            vegetation VARCHAR(50) NOT NULL,
+            vegetation VARCHAR(50) NOT NULL DEFAULT 'flores silvestres',
             hmToWater TINYINT NOT NULL,-- hectometros de distancia hasta fuente de agua
             startDate DATE NOT NULL,
             endDate DATE,
@@ -72,10 +72,8 @@ async function restartDb() {
             created DATETIME DEFAULT CURRENT_TIMESTAMP,
             userEmail VARCHAR(100),
             clientId INT DEFAULT NULL,
-            FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE   CASCADE,
-            FOREIGN KEY (clientId) REFERENCES clients(clientId) ON DELETE CASCADE,
-            CHECK (userIsOwner = FALSE OR clientId IS NULL),
-            CHECK (userIsOwner = TRUE OR clientId IS NOT NULL)
+            FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
+            FOREIGN KEY (clientId) REFERENCES clients(clientId) ON DELETE set null
         );
     `);
 
@@ -91,8 +89,8 @@ async function restartDb() {
             mother INT,
             supplierId INT,
             FOREIGN KEY (userEmail) REFERENCES users(userEmail) ON DELETE CASCADE,
-            FOREIGN KEY (mother) REFERENCES queens(queenId) ON DELETE CASCADE,
-            FOREIGN KEY (supplierId) REFERENCES suppliers(supplierId) ON DELETE CASCADE,
+            FOREIGN KEY (mother) REFERENCES queens(queenId) ON DELETE set null,
+            FOREIGN KEY (supplierId) REFERENCES suppliers(supplierId) ON DELETE set null,
             created DATETIME DEFAULT CURRENT_TIMESTAMP
         );`);
 
@@ -110,11 +108,11 @@ async function restartDb() {
             landingBoard BOOLEAN DEFAULT FALSE,
             entranceReducer BOOLEAN DEFAULT FALSE,
             pollenTrap BOOLEAN DEFAULT FALSE,
-            queenId INT NOT NULL,
-            apiaryId INT NOT NULL,
+            queenId INT,
+            apiaryId INT,
             created DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (queenId) REFERENCES queens(queenId) ON DELETE CASCADE,
-            FOREIGN KEY (apiaryId) REFERENCES apiaries(apiaryId) ON DELETE CASCADE
+            FOREIGN KEY (queenId) REFERENCES queens(queenId) ON DELETE set null,
+            FOREIGN KEY (apiaryId) REFERENCES apiaries(apiaryId) ON DELETE set null
         );
     `);
 
@@ -129,7 +127,7 @@ async function restartDb() {
             beehiveId INT NOT NULL,
             numFrames TINYINT UNSIGNED,
             numSuperChambers TINYINT UNSIGNED,
-            numBroodChambers TINYINT UNSIGNED,
+            numBroodChambers TINYINT UNSIGNED DEFAULT 1,
             queenExcluder BOOLEAN,
             screenedBottom BOOLEAN,
             slattedRack BOOLEAN,
@@ -143,11 +141,12 @@ async function restartDb() {
             latitude DECIMAL(10, 8),
             longitude DECIMAL(10, 8),
             nomad BOOLEAN,
-            vegetation VARCHAR(50) NOT NULL,
+            vegetation VARCHAR(50) DEFAULT 'flores silvestres',
             hmToWater TINYINT,
             clientId INT DEFAULT NULL,
             created DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (beehiveId) REFERENCES beehives(beehiveId)
+            userEmail VARCHAR(100) NOT NULL,
+            FOREIGN KEY (userEmail) REFERENCES users(userEmail) on delete cascade
         );
     `);
 
@@ -203,15 +202,15 @@ async function restartDb() {
 
     await pool.query(`
         INSERT INTO harvests
-            (harvestDate, kgHoney, kgPollen, queenId, apiaryId, beehiveId, numFrames, numSuperChambers, vegetation) 
+            (harvestDate, kgHoney, kgPollen, queenId, apiaryId, beehiveId, numFrames, numSuperChambers, vegetation, userEmail) 
         VALUES
-            ('2020-01-01', 10, 2, 1, 1, 1, 12, 2, "flores silvestres"),
-            ('2021-01-01', 15, 3, 1, 1, 1, 12, 2, "flores silvestres"),
-            ('2022-01-01', 20, 4, 1, 1, 1, 12, 2, "flores silvestres"),
-            ('2023-01-01', 12, 2, 1, 1, 1, 12, 2, "flores silvestres"),
-            ('2024-01-01', 18, 3, 1, 1, 1, 12, 2, "flores silvestres"),
-            ('2021-01-01', 9, 1, 4, 2, 4, 8, 1, "castaños"),
-            ('2022-01-01', 8, 0, 4, 2, 4, 8, 1, "naranjos");
+            ('2020-01-01', 10, 2, 1, 1, 1, 12, 2, "flores silvestres", 'abejamaya@email.com'),
+            ('2021-01-01', 15, 3, 1, 1, 1, 12, 2, "flores silvestres", 'abejamaya@email.com'),
+            ('2022-01-01', 20, 4, 1, 1, 1, 12, 2, "flores silvestres", 'abejamaya@email.com'),
+            ('2023-01-01', 12, 2, 1, 1, 1, 12, 2, "flores silvestres", 'abejamaya@email.com'),
+            ('2024-01-01', 18, 3, 1, 1, 1, 12, 2, "flores silvestres", 'abejamaya@email.com'),
+            ('2021-01-01', 49, 1, 4, 2, 4, 18, 1, "castaños", 'abejamaya@email.com'),
+            ('2022-01-01', 48, 0, 4, 2, 4, 18, 1, "naranjos", 'abejamaya@email.com');
     `);
     console.log("Database apiculture reset to original status;");
   } catch (error) {

@@ -75,7 +75,7 @@ const doc = {
   },
   components: {
     parameters: {
-      numericalIdParameter: {
+      numericalIdPathParameter: {
         description: 'Identification number',
         in: 'path',                                           
         required: 'true',

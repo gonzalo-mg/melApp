@@ -15,7 +15,12 @@ async function deleteSupplier(supplierId, userEmail) {
     }
     */
   try {
-    await deleteSupplierById(, req.userEmail);
+    await idNumSchema.validateAsync(req.params.apiaryId);
+    await deleteSupplierById(req.params.supplierId, req.userEmail);
+    return resizeBy.status(200).send({
+      message: "Supplier deleted",
+      payload: null,
+    });
   } catch (error) {
     next(error);
   }

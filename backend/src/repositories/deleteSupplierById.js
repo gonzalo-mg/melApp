@@ -1,6 +1,6 @@
 const getPool = require("../dataBase/getPool");
 
-async function deleteSupplier(supplierId, userEmail) {
+async function deleteSupplierById(supplierId, userEmail) {
   const pool = getPool();
 
   return await pool.query(
@@ -9,4 +9,4 @@ async function deleteSupplier(supplierId, userEmail) {
   );
 }
 
-module.exports = deleteSupplier;
+module.exports = deleteSupplierById;

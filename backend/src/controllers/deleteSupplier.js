@@ -1,6 +1,7 @@
 const deleteSupplierById = require("../repositories/deleteSupplierById");
+const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 
-async function deleteSupplier(supplierId, userEmail) {
+async function deleteSupplier(req, res, next) {
   /**
      #swagger.tags = ['Suppliers']
      #swagger.description = 'Delete a supplier of current user.'
@@ -15,9 +16,9 @@ async function deleteSupplier(supplierId, userEmail) {
     }
     */
   try {
-    await idNumSchema.validateAsync(req.params.apiaryId);
+    await numericalId.validateAsync(req.params.supplierId);
     await deleteSupplierById(req.params.supplierId, req.userEmail);
-    return resizeBy.status(200).send({
+    return res.status(200).send({
       message: "Supplier deleted",
       payload: null,
     });

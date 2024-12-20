@@ -1,4 +1,4 @@
-const { idNumSchema } = require("../dataValidationSchemas/idNum");
+const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectApiaryById = require("../repositories/selectApiaryById");
 
 async function getApiaryById(req, res, next) {
@@ -20,7 +20,7 @@ async function getApiaryById(req, res, next) {
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(req.params.apiaryId);
+    await numericalId.validateAsync(req.params.apiaryId);
 
     const [apiary] = await selectApiaryById(req.params.apiaryId, req.userEmail);
 

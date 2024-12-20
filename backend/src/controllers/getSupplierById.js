@@ -1,4 +1,4 @@
-const idNumSchema = require("../dataValidationSchemas/idNum");
+const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectSupplierById = require("../repositories/selectSupplierById");
 
 async function getSupplierById(req, res, next) {
@@ -20,7 +20,7 @@ async function getSupplierById(req, res, next) {
 */
   try {
     //validar q el id es de naturaleza numerica
-    await idNumSchema.validateAsync(req.params.apiaryId);
+    await numericalId.validateAsync(req.params.apiaryId);
 
     const [supplier] = await selectSupplierById(
       req.params.supplierId,

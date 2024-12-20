@@ -4,7 +4,7 @@ async function deleteSupplierById(supplierId, userEmail) {
   const pool = getPool();
 
   return await pool.query(
-    `delete from suppliers where supplierId = ? and userEmail = ?';`,
+    `delete from suppliers where supplierId = ? and userEmail = ?;`,
     [supplierId, userEmail]
   );
 }

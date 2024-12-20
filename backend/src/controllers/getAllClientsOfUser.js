@@ -1,4 +1,3 @@
-const { message } = require("../dataValidationSchemas/idNum");
 const selectAllClientsOfUserByEmail = require("../repositories/selectAllClientsOfUserByEmail");
 
 async function getAllClientsOfUser(req, res, next) {

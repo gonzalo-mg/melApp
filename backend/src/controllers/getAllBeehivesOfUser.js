@@ -1,4 +1,3 @@
-const { message } = require("../dataValidationSchemas/idNum");
 const selectAllBeehivesOfUserByEmail = require("../repositories/selectAllBeehivesOfUserByEmail");
 
 async function getAllBeehivesOfUser(req, res, next) {

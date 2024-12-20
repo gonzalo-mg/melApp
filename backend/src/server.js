@@ -54,14 +54,14 @@ app.post("/register", registerUser);
 // suppliers
 app.get("/suppliers", authValidation, getAllSuppliersOfUser);
 app.get("/suppliers/:supplierId", authValidation, getSupplierById);
-app.post("/supplier", authValidation, postSupplier);
-app.put("/supplier", authValidation, putSupplier);
-app.delete("/supplier/:supplierId", authValidation, deleteSupplier);
+app.post("/suppliers", authValidation, postSupplier);
+app.put("/suppliers", authValidation, putSupplier);
+app.delete("/suppliers/:supplierId", authValidation, deleteSupplier);
 // clients
 app.get("/clients", authValidation, getAllClientsOfUser);
 app.get("/clients/:clientId", authValidation, getClientById);
-app.post("/client", authValidation, postClient);
-app.put("/client", authValidation, putClient);
+app.post("/clients", authValidation, postClient);
+app.put("/clients", authValidation, putClient);
 // apiaries
 app.get("/apiaries", authValidation, getAllApiariesOfUser);
 app.get("/apiaries/:apiaryId", authValidation, getApiaryById);

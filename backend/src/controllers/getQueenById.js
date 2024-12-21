@@ -17,12 +17,19 @@ async function getQueenById(req, res, next) {
   #swagger.responses[400] = {
     $ref: "#/schemas/validationErrorResponse"
   }
+  #swagger.responses[404] = {
+    $ref: "#/schemas/notFoundErrorResponse"
+  }
 */
   try {
     //validar q el id es de naturaleza numerica
     await numericalId.validateAsync(req.params.queenId);
 
     const [queen] = await selectQueenById(req.params.queenId, req.userEmail);
+
+    if (!queen) {
+      createHttpError("queenId not found for current user.", 404);
+    }
 
     return res.status(200).send({
       message: "Queen recovered as object available in payload.",

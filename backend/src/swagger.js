@@ -72,6 +72,10 @@ const doc = {
       description:
         "Validation error: request data does not comply with expected data schema.",
     },
+    notFoundErrorResponse: {
+      description:
+        "Not found: requested element could not be found.",
+    }
   },
   components: {
     parameters: {

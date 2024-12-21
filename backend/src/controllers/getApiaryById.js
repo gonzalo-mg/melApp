@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectApiaryById = require("../repositories/selectApiaryById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getApiaryById(req, res, next) {
   /**

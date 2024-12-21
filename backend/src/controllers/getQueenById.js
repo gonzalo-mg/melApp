@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectQueenById = require("../repositories/selectQueenById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getQueenById(req, res, next) {
   /**

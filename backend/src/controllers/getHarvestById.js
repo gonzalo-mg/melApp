@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectHarvestById = require("../repositories/selectHarvestById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getHarvestById(req, res, next) {
   /**

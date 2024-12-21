@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectSupplierById = require("../repositories/selectSupplierById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getSupplierById(req, res, next) {
   /**
@@ -30,8 +31,8 @@ async function getSupplierById(req, res, next) {
       req.userEmail
     );
 
-    if (!supplier) {return next();
-      //createHttpError("supplierId not found for current user.", 404);
+    if (!supplier) {
+      createHttpError("supplierId not found for current user.", 404);
     }
 
     return res.status(200).send({

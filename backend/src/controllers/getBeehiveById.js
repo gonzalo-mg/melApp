@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectBeehiveById = require("../repositories/selectBeehiveById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getBeehiveById(req, res, next) {
   /**

@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectBeehiveById = require("../repositories/selectBeehiveById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getBeehiveById(req, res, next) {
   /**
@@ -17,6 +18,9 @@ async function getBeehiveById(req, res, next) {
   #swagger.responses[400] = {
     $ref: "#/schemas/validationErrorResponse"
   }
+  #swagger.responses[404] = {
+    $ref: "#/schemas/notFoundErrorResponse"
+  }
 */
   try {
     //validar q el id es de naturaleza numerica
@@ -26,6 +30,10 @@ async function getBeehiveById(req, res, next) {
       req.params.beehiveId,
       req.userEmail
     );
+
+    if (!beehive) {
+      createHttpError("beehiveId not found for current user.", 404);
+    }
 
     return res.status(200).send({
       message: "Beehive recovered as object available in payload.",

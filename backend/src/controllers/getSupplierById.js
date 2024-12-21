@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectSupplierById = require("../repositories/selectSupplierById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getSupplierById(req, res, next) {
   /**
@@ -17,7 +18,10 @@ async function getSupplierById(req, res, next) {
   #swagger.responses[400] = {
     $ref: "#/schemas/validationErrorResponse"
   }
-*/
+  #swagger.responses[404] = {
+    $ref: "#/schemas/notFoundErrorResponse"
+  }
+ */
   try {
     //validar q el id es de naturaleza numerica
     await numericalId.validateAsync(req.params.supplierId);
@@ -26,6 +30,10 @@ async function getSupplierById(req, res, next) {
       req.params.supplierId,
       req.userEmail
     );
+
+    if (!supplier) {
+      createHttpError("supplierId not found for current user.", 404);
+    }
 
     return res.status(200).send({
       message: "Supplier recovered as object available in payload.",

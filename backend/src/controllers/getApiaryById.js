@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectApiaryById = require("../repositories/selectApiaryById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getApiaryById(req, res, next) {
   /**
@@ -17,12 +18,19 @@ async function getApiaryById(req, res, next) {
   #swagger.responses[400] = {
     $ref: "#/schemas/validationErrorResponse"
   }
+  #swagger.responses[404] = {
+    $ref: "#/schemas/notFoundErrorResponse"
+  }
 */
   try {
     //validar q el id es de naturaleza numerica
     await numericalId.validateAsync(req.params.apiaryId);
 
     const [apiary] = await selectApiaryById(req.params.apiaryId, req.userEmail);
+
+    if (!apiary) {
+      createHttpError("apiaryId not found for current user.", 404);
+    }
 
     return res.status(200).send({
       message: "Apiary recovered as object available in payload.",

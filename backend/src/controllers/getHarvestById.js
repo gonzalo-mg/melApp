@@ -1,5 +1,6 @@
 const { numericalId } = require("../dataValidationSchemas/numericalIdSchema");
 const selectHarvestById = require("../repositories/selectHarvestById");
+const createHttpError = require("../utilities/createHttpError");
 
 async function getHarvestById(req, res, next) {
   /**
@@ -17,6 +18,9 @@ async function getHarvestById(req, res, next) {
   #swagger.responses[400] = {
     $ref: "#/schemas/validationErrorResponse"
   }
+  #swagger.responses[404] = {
+    $ref: "#/schemas/notFoundErrorResponse"
+  }
 */
   try {
     //validar q el id es de naturaleza numerica
@@ -26,6 +30,10 @@ async function getHarvestById(req, res, next) {
       req.params.harvestId,
       req.userEmail
     );
+
+    if (!harvest) {
+      createHttpError("harvestId not found for current user.", 404);
+    }
 
     return res.status(200).send({
       message: "Harvest recovered as object available in payload.",

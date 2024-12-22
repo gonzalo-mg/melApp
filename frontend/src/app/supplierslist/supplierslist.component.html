@@ -1,0 +1,5 @@
+@for(supplier of suppliers; track supplier.supplierId){
+    <melApp-suppliercard [supplier]="supplier"></melApp-suppliercard>
+}@empty {
+    <p>No hay proveedores que mostrar.</p>
+}

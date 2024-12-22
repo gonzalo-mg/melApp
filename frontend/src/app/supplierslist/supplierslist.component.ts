@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { RouterModule, Routes, RouterOutlet } from '@angular/router';
 import { SupplierModel } from '../models/supplier.model';
 import { SuppliercardComponent } from '../suppliercard/suppliercard.component';
 

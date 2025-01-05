@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { RouterModule, Routes, RouterOutlet } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { SupplierModel } from '../../models/supplier.model';
 import { SuppliercardComponent } from '../suppliercard/suppliercard.component';
 import { SuppliersService } from '../../services/suppliers.service';

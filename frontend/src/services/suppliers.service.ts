@@ -21,7 +21,7 @@ export class SuppliersService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhYmVqYW1heWFAZW1haWwuY29tIiwiaWF0IjoxNzM2MDczOTU1LCJleHAiOjE3MzYxNjAzNTV9.bjJCMdEKM-2gPfYxRkeFixzlKLRlXKwwMljrQPz5T-',
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhYmVqYW1heWFAZW1haWwuY29tIiwiaWF0IjoxNzM2MDczOTU1LCJleHAiOjE3MzYxNjAzNTV9.bjJCMdEKM-2gPfYxRkeFixzlKLRlXKwwMljrQPz5T-w',
     });
 
     return this.http

@@ -1,4 +1,5 @@
 <div class="mb-3">
+  <h3>Introduza as súas credencias para iniciar sesión</h3>
   <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="email" class="form-label">Email:</label>
@@ -6,11 +7,19 @@
         type="email"
         id="email"
         name="email"
+        #email="ngModel"
         [(ngModel)]="user.email"
         required
         email
         class="form-control"
       />
+      @if (email.errors?.['required'] && !email.pristine) {
+      <div class="alert alert-warning" role="alert">Email é obrigatorio.</div>
+      } @if (email.errors?.['email'] && !email.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Debe ter formato de correo electrónico.
+      </div>
+      }
     </div>
 
     <div>
@@ -19,10 +28,21 @@
         type="password"
         id="password"
         name="password"
+        #password="ngModel"
         [(ngModel)]="user.password"
         required
+        minlength="8"
         class="form-control"
       />
+      @if (password.errors?.['required'] && !password.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Contrasinal é obrigatorio.
+      </div>
+      } @if (password.errors?.['minlength'] && !password.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Debe ter polo menos 8 caracteres.
+      </div>
+      }
     </div>
 
     <button
@@ -30,7 +50,10 @@
       [disabled]="!loginForm.form.valid"
       class="btn btn-primary"
     >
-      Login
+    {{ loading ? 'Logging in...' : 'Login' }}
     </button>
+    @if (errorMessage) {
+    <div class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+    }
   </form>
 </div>

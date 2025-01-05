@@ -34,10 +34,16 @@ async function loginUser(req, res, next) {
 
     // comprobar si el usuario existe
     const user = await selectUserByEmail(email);
+    if (!user) {
+      createHttpError(
+        "Login failed: user and/or password are incorrect or unregistered.",
+        401
+      );
+    }
     // comprobar contraseña
     const passwordCheck = await bcrypt.compare(password, user.userPassword);
     // mensaje ambiguo para no dar detalles por seguridad
-    if (!user || !passwordCheck) {
+    if (!passwordCheck) {
       createHttpError(
         "Login failed: user and/or password are incorrect or unregistered.",
         401

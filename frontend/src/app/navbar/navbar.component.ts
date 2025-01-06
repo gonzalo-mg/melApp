@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'melApp-navbar',
@@ -12,10 +12,17 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent {
   user: string | null = null;
 
-  constructor() {
+  constructor(private readonly router: Router) {
     const userEmail = localStorage.getItem('user');
     if (userEmail) {
       this.user = userEmail;
     }
+  }
+
+  logOut():void {
+    console.log(`logout called`)
+    localStorage.removeItem('user');
+    localStorage.removeItem('token')
+    this.router.navigate(['/login']);
   }
 }

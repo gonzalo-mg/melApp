@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterModule } from '@angular/router';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
@@ -11,4 +11,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 })
 export class AppComponent {
   title = 'MelApp';
+  showNavbar: boolean = true;
+
+  constructor(private readonly router: Router) {
+    this.router.events.subscribe(() => {
+      this.showNavbar = !this.isLoginOrRegisterRoute();
+    });
+  }
+
+  private isLoginOrRegisterRoute(): boolean {
+    return this.router.url === '/login' || this.router.url === '/register';
+  }
 }

@@ -1,0 +1,92 @@
+<div class="mb-3">
+  <h3>
+    Introduza un enderezo electrónico e un contrasinal de 8 ou máis caracteres.
+  </h3>
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email" class="form-label">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        #email="ngModel"
+        [(ngModel)]="user.email"
+        required
+        email
+        class="form-control"
+      />
+      <label for="email2" class="form-label">Repita o enderezo:</label>
+      <input
+        type="email"
+        id="email2"
+        name="email2"
+        #email2="ngModel"
+        [(ngModel)]="user2.email"
+        required
+        email
+        class="form-control"
+      />
+      @if (email.errors?.['required'] && !email.pristine) {
+      <div class="alert alert-warning" role="alert">Email é obrigatorio.</div>
+      } @if (email.errors?.['email'] && !email.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Debe ter formato de correo electrónico.
+      </div>
+      } @if ((user.email !== user2.email) && !email2.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Os enderezos non coinciden.
+      </div>
+      }
+    </div>
+
+    <div>
+      <label for="password" class="form-label">Contrasinal:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        #password="ngModel"
+        [(ngModel)]="user.password"
+        required
+        minlength="8"
+        class="form-control"
+      />
+      <label for="password2" class="form-label">Repita o contrasinal:</label>
+      <input
+        type="password"
+        id="password2"
+        name="password2"
+        #password2="ngModel"
+        [(ngModel)]="user2.password"
+        required
+        minlength="8"
+        class="form-control"
+      />
+      @if (password.errors?.['required'] && !password.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Contrasinal é obrigatorio.
+      </div>
+      } @if (password.errors?.['minlength'] && !password.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Debe ter polo menos 8 caracteres.
+      </div>
+      } @if ((user.password !== user2.password) && !password2.pristine &&
+      !password2.pristine) {
+      <div class="alert alert-warning" role="alert">
+        Contrasinal non coincide.
+      </div>
+      }@else{}
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!registerForm.form.valid"
+      class="btn btn-primary"
+    >
+      {{ loading ? "Enviando..." : "Rexistrar" }}
+    </button>
+    @if (errorMessage) {
+    <div class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+    }
+  </form>
+</div>

@@ -39,7 +39,7 @@ export class LoginComponent {
     this.errorMessage = '';
 
     // lógica para manejar el login
-    const resp = this.authService.postLogin(this.user);
+    const resp = this.authService.loginUser(this.user);
     resp.subscribe({
       next: (response) => {
         // guardar token

@@ -42,8 +42,6 @@ export class RegisterComponent {
     this.errorMessage = '';
 
     // lógica para manejar el login
-    //encriptar password
-    this.user.password = 
     const resp = this.authService.registerUser(this.user);
     resp.subscribe({
       next: (response) => {

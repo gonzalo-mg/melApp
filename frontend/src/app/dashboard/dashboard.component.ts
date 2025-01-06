@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { DashcardComponent } from '../dashcard/dashcard.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'melApp-dashboard',
   standalone: true,
-  imports: [DashcardComponent],
+  imports: [DashcardComponent, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

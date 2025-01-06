@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-import { User } from '../../models/user.model';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'melApp-navbar',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  user: User = { email: '', password: '' };
+  user: string | null = null;
+
+  constructor() {
+    const userEmail = localStorage.getItem('user');
+    if (userEmail) {
+      this.user = userEmail;
+    }
+  }
 }

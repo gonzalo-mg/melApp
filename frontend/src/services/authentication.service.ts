@@ -17,8 +17,8 @@ export class AuthenticationService {
     return this.http.post<BackendResponse>(`${this.apiUrl}/login`, user);
   }
 
-  postRegister(user: User): Observable<BackendResponse> {
-    return this.http.post<BackendResponse>(`${this.apiUrl}/login`, user);
+  registerUser(user: User): Observable<BackendResponse> {
+    return this.http.post<BackendResponse>(`${this.apiUrl}/register`, user);
   }
 
   //error gestionado en componentes; del backend llegan errores específicos q aportan info a la interfaz

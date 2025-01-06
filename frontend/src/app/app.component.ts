@@ -1,13 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
   selector: 'melApp-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterModule, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'MelApp';
+  showNavbar: boolean = true;
+
+  constructor(private readonly router: Router) {
+    this.router.events.subscribe(() => {
+      this.showNavbar = !this.isLoginOrRegisterRoute();
+    });
+  }
+
+  private isLoginOrRegisterRoute(): boolean {
+    return this.router.url === '/login' || this.router.url === '/register';
+  }
 }

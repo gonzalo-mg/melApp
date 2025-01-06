@@ -44,6 +44,7 @@ export class LoginComponent {
       next: (response) => {
         // guardar token
         localStorage.setItem('token', response.payload.userToken);
+        localStorage.setItem('user', this.user.email);
 
         this.loading = false;
 

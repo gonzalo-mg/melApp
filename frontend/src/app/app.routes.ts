@@ -6,6 +6,7 @@ import { SupplierformComponent } from './supplierform/supplierform.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'register',
     component: RegisterComponent,

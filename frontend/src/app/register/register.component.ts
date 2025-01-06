@@ -21,6 +21,10 @@ export class RegisterComponent {
     email: '',
     password: '',
   };
+  public readonly user2: User = {
+    email: '',
+    password: '',
+  };
   public errorMessage: string = ``;
   public loading: boolean = false;
 

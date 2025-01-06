@@ -1,12 +1,12 @@
 <div class="card text-center mb-3" style="width: 18rem">
   <div class="card-body">
-    <a href="#">
+    <a [href]="targetPath">
       <img
-        src="./beehive2.png"
+        [src]="iconPath"
         class="card-img-top img-thumbnail"
-        alt="Apiarios"
+        [alt]="cardTitle"
       />
     </a>
-    <a href="#" class="btn btn-primary">Mis apiarios</a>
+    <a [href]="targetPath" class="btn btn-primary">{{ cardTitle }}</a>
   </div>
 </div>

@@ -1,0 +1,5 @@
+@for(apiary of apiaries; track apiary.apiaryId){
+<melApp-apiarycard [apiary]="apiary"></melApp-apiarycard>
+}@empty {
+<p>Non hai apiarios que amosar.</p>
+}

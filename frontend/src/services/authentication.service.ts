@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { BackendResponse } from '../models/backendResponse';
 import { User } from '../models/user.model';
@@ -11,7 +12,10 @@ import { User } from '../models/user.model';
 export class AuthenticationService {
   private readonly apiUrl = environment.apiUrl;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly router: Router
+  ) {}
 
   loginUser(user: User): Observable<BackendResponse> {
     return this.http.post<BackendResponse>(`${this.apiUrl}/login`, user);
@@ -19,6 +23,12 @@ export class AuthenticationService {
 
   registerUser(user: User): Observable<BackendResponse> {
     return this.http.post<BackendResponse>(`${this.apiUrl}/register`, user);
+  }
+
+  logOut(): Promise<boolean> {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    return this.router.navigate(['/login']);
   }
 
   //error gestionado en componentes; del backend llegan errores específicos q aportan info a la interfaz

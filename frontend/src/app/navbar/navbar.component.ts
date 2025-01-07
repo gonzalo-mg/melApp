@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'melApp-navbar',
@@ -12,7 +13,10 @@ import { Router, RouterModule } from '@angular/router';
 export class NavbarComponent {
   user: string | null = null;
 
-  constructor(private readonly router: Router) {
+  constructor(
+    private readonly router: Router,
+    private readonly authService: AuthenticationService
+  ) {
     const userEmail = localStorage.getItem('user');
     if (userEmail) {
       this.user = userEmail;
@@ -20,9 +24,5 @@ export class NavbarComponent {
   }
 
   logOut():void {
-    console.log(`logout called`)
-    localStorage.removeItem('user');
-    localStorage.removeItem('token')
-    this.router.navigate(['/login']);
-  }
-}
+    this.authService.logOut();
+  }}

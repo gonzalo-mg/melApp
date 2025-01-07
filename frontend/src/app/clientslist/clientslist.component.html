@@ -1,0 +1,5 @@
+@for(client of clients; track client.clientId){
+    <melApp-clientcard [client]="client"></melApp-clientcard>
+}@empty {
+    <p>Non hai clientes que amosar.</p>
+}

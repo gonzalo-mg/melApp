@@ -49,7 +49,7 @@ export class LoginComponent {
         this.loading = false;
 
         // si ok
-        this.router.navigate(['/suppliers']);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.errorMessage = err.error.message;

@@ -50,10 +50,14 @@
       [disabled]="!loginForm.form.valid"
       class="btn btn-primary"
     >
-    {{ loading ? 'Logging in...' : 'Login' }}
+      {{ loading ? "Logging in..." : "Login" }}
     </button>
     @if (errorMessage) {
     <div class="alert alert-danger" role="alert">{{ errorMessage }}</div>
     }
   </form>
+  <div class="mb-3">
+    <h4>Si non ten unha conta rexístrese</h4>
+    <a class="btn btn-secondary" routerLink="/register">Rexístrase</a>
+  </div>
 </div>

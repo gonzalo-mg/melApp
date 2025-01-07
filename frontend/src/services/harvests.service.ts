@@ -8,7 +8,7 @@ import { BackendResponse } from '../models/backendResponse';
   providedIn: 'root',
 })
 export class HarvestsService {
-  private readonly apiUrl = `${environment.apiUrl}/harvestsº`;
+  private readonly apiUrl = `${environment.apiUrl}/harvests`;
 
   constructor(private readonly http: HttpClient) {}
 

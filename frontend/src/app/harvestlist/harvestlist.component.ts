@@ -22,6 +22,8 @@ export class HarvestlistComponent implements OnInit {
   loadHarvests(): void {
     this.harvestService.getHarvests().subscribe({
       next: (response) => {
+        console.log("loadHarvests payload")
+        console.log(response.payload)
         this.harvests = response.payload;
       },
       error: (err) => {

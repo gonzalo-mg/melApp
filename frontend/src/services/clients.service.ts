@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { BackendResponse } from '../models/backendResponse';
+import { handleError } from './aux/errorHandler';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,12 @@ export class ClientsService {
   constructor(private readonly http: HttpClient) {}
 
   getClients(): Observable<BackendResponse> {
-    return this.http
-      .get<BackendResponse>(this.apiUrl)
-      .pipe(catchError(this.handleError));
+    return this.http.get<BackendResponse>(this.apiUrl);
+    //error controlado en componente
+    //.pipe(catchError(handleError));
   }
 
-  private handleError(error: HttpErrorResponse): Observable<never> {
+  /*   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An error occurred.';
     if (error.error instanceof ErrorEvent) {
       // Client-side error
@@ -29,5 +30,5 @@ export class ClientsService {
       errorMessage = `Error from server - Code: ${error.status}. Message: ${error.message}; ${error.error.message}. `; // el ultimo string es el mensaje de error especifico q envio desde el backend
     }
     return throwError(() => new Error(errorMessage));
-  }
+  } */
 }

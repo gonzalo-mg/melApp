@@ -34,7 +34,7 @@ export const routes: Routes = [
     title: 'Editar Proveedor',
   },
   {
-    path: 'client',
+    path: 'clients',
     component: ClientslistComponent,
     title: 'Clientes',
   },

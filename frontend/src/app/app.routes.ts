@@ -5,6 +5,7 @@ import { SupplierslistComponent } from './supplierslist/supplierslist.component'
 import { SupplierformComponent } from './supplierform/supplierform.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientslistComponent } from './clientslist/clientslist.component';
+import { QueenslistComponent } from './queenslist/queenslist.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -37,5 +38,10 @@ export const routes: Routes = [
     path: 'clients',
     component: ClientslistComponent,
     title: 'Clientes',
+  },
+  {
+    path: 'queens',
+    component: QueenslistComponent,
+    title: 'Raíñas',
   },
 ];

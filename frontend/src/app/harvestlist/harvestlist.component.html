@@ -1,1 +1,5 @@
-<p>harvestlist works!</p>
+@for(harvest of harvests; track harvest.harvestId){
+<melApp-harvestcard [harvest]="harvest"></melApp-harvestcard>
+}@empty {
+<p>Non hai colleitas que amosar.</p>
+}

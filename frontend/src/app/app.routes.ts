@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { SupplierslistComponent } from './supplierslist/supplierslist.component';
 import { SupplierformComponent } from './supplierform/supplierform.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClientslistComponent } from './clientslist/clientslist.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,5 +32,10 @@ export const routes: Routes = [
     path: 'suppliers/:supplierId',
     component: SupplierformComponent,
     title: 'Editar Proveedor',
+  },
+  {
+    path: 'client',
+    component: ClientslistComponent,
+    title: 'Clientes',
   },
 ];

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -10,19 +10,23 @@ import { AuthenticationService } from '../../services/authentication.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
-  user: string | null = null;
+export class NavbarComponent implements OnInit {
+  userToDisplay: string | null = null;
 
   constructor(
     private readonly router: Router,
     private readonly authService: AuthenticationService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     const userEmail = localStorage.getItem('user');
     if (userEmail) {
-      this.user = userEmail;
+      //console.log(`userToDisplay: ${userEmail?.split('@')[0]}`);
+      this.userToDisplay = userEmail?.split('@')[0];
     }
   }
 
-  logOut():void {
+  logOut(): void {
     this.authService.logOut();
-  }}
+  }
+}

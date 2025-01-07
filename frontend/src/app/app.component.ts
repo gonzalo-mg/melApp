@@ -19,6 +19,7 @@ export class AppComponent {
     });
   }
 
+  // renderizar condicionalmente NavbarComponent
   private isLoginOrRegisterRoute(): boolean {
     return this.router.url === '/login' || this.router.url === '/register';
   }

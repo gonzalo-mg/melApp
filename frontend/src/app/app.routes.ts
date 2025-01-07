@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientslistComponent } from './clientslist/clientslist.component';
 import { QueenslistComponent } from './queenslist/queenslist.component';
 import { ApiarieslistComponent } from './apiarieslist/apiarieslist.component';
+import { HarvestlistComponent } from './harvestlist/harvestlist.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -49,5 +50,10 @@ export const routes: Routes = [
     path: 'apiaries',
     component: ApiarieslistComponent,
     title: 'Apiarios',
+  },
+  {
+    path: 'harvests',
+    component: HarvestlistComponent,
+    title: 'Colleitas',
   },
 ];
